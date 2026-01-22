@@ -49,6 +49,42 @@ public class LICTests {
     }
 
     @Test
+    public void testLIC2() {
+
+        Point[] points1 = new Point[] {
+            new Point(2, 2),
+            new Point(5, 5)
+        };
+
+        Point[] points2 = new Point[] {
+            new Point(1, 0),
+            new Point(1,0),
+            new Point(0, 1)
+        };
+
+        Point[] points3 = new Point[] {
+            new Point(1, 1),
+            new Point(1, 1),
+            new Point(-2, -2),
+            new Point(-2, -1),
+            new Point(-3, -1)
+        };
+
+        Point[] points4 = new Point[] {
+            new Point(-2, -2),
+            new Point(-2, -1),
+            new Point(-3, -1)
+        };
+        
+        assertFalse(LIC.LIC2(points1.length, points1, 0.01));
+        assertFalse(LIC.LIC2(points2.length, points2, 0.01));
+        assertTrue(LIC.LIC2(points3.length, points3, (3.14159265359/2)-0.01));
+        assertFalse(LIC.LIC2(points4.length, points4, -0.01));
+        assertFalse(LIC.LIC2(points4.length, points4, 3.14159265359+0.01));
+        assertFalse(LIC.LIC2(points4.length, points3, (3.14159265359/2)+0.01));
+    }
+
+    @Test
     public void testLIC7() {
         Point[] points1 = new Point[] {
             new Point(2, 2),
