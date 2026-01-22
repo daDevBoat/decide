@@ -25,9 +25,10 @@ public class LICTests {
     void LIC0_false_with_too_few_points(){
         Point[] pts = {new Point(0, 0)};
         assertFalse(LIC.LIC0(pts.length, pts, 4));
+    }
     
     @Test
-    public void testLIC1() {
+    void testLIC1() {
         Point[] points = new Point[] {
             new Point(2, 2),
             new Point(8, 2),
