@@ -1,8 +1,8 @@
 public class Point {
-    int x;
-    int y;
+    double x;
+    double y;
 
-    Point(int x, int y) {
+    Point(double  x, double  y) {
         this.x = x;
         this.y = y;
     } 
