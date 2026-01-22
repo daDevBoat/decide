@@ -1,9 +1,11 @@
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class LICTests {
-    public static void main(String[] args) {
-        System.out.println("Test run");
+    
+    @Test
+    void simpleTest() {
+        assertEquals(4, 2 + 2);
     }
 }
