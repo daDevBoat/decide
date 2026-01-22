@@ -18,6 +18,15 @@ public class LICTests {
     }
 
     @Test
+    public void testCircleRadiusFunction() {
+        Point p1 = new Point(2, 2);
+        Point p2 = new Point(8, 2);
+        Point p3 = new Point(6, 5);
+
+        assertEquals(Point.circleRadius(p3, p1, p2), 3.004626062886658, 0.0000001);
+    }
+
+    @Test
     void LIC0_true_with_greater_distance(){
         Point[] pts = {new Point(0, 0), new Point(3,4)};
         assertTrue(LIC.LIC0(pts.length, pts, 4));
@@ -40,10 +49,11 @@ public class LICTests {
         Point[] points = new Point[] {
             new Point(2, 2),
             new Point(8, 2),
-            new Point(5, 5)
+            new Point(6, 5)
         };
         
-        assertTrue(LIC.LIC1(points.length, points, 3.1));
+        assertTrue(LIC.LIC1(points.length, points, 3));
+        points[0].x = 2.1;
         assertFalse(LIC.LIC1(points.length, points, 3));
 
     }
