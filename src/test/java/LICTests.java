@@ -14,7 +14,7 @@ public class LICTests {
         Point p1 = new Point(2, 0);
         Point p2 = new Point(1, 0);
         Point p3 = new Point(1, 3);
-        assertEquals(Point.angle(p1, p2, p3), 3.14159/2);
+        assertEquals(Point.angle(p1, p2, p3), 3.14159/2, 0.0001);
     }
 
     @Test
