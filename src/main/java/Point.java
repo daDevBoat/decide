@@ -17,4 +17,13 @@ public class Point {
         double c = p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y);
         return Math.abs(c) / 2.0;
     }
+
+    public static double angle(Point p1, Point p2, Point p3) {
+        //Uses the dot product method
+        // a = p1 - p2, b = p3 - p2 
+        Point a = new Point(p1.x-p2.x, p1.y-p2.y);
+        Point b = new Point(p3.x-p2.x, p3.y-p2.y);
+        Point origo = new Point(0,0);
+        return Math.acos( (a.x*b.x+a.y*b.y)/(distance(a,origo)*distance(b,origo)) );
+    }
 }
