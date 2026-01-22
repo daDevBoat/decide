@@ -10,10 +10,9 @@ public class LIC {
     public static boolean LIC1(int numPoints, Point[] points, double RADIUS1) {
         if (numPoints < 3 || RADIUS1 < 0) return false;
         for (int i = 0; i < numPoints - 2; i++) {
-            if (Point.distance(points[i], points[i + 1]) >= RADIUS1 * 2) continue;
-            if (Point.distance(points[i], points[i + 2]) >= RADIUS1 * 2) continue;
-            if (Point.distance(points[i + 1], points[i + 2]) >= RADIUS1 * 2) continue;
-            return true;
+            if (Point.distance(points[i], points[i + 1]) > RADIUS1 * 2) return true;
+            if (Point.distance(points[i], points[i + 2]) > RADIUS1 * 2) return true;
+            if (Point.distance(points[i + 1], points[i + 2]) > RADIUS1 * 2) return true;
         }
         return false;
     }
