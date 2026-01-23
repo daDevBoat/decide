@@ -55,7 +55,6 @@ public class LIC {
         }
         return false;
     }
-<<<<<<< HEAD
 
     public static boolean LIC9(int numPoints, Point[] points, Parameters p){
         if(numPoints < 5) return false;
@@ -80,6 +79,4 @@ public class LIC {
         return false;
     }
 
-=======
->>>>>>> main
 }

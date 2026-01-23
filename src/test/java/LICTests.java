@@ -202,4 +202,132 @@ public class LICTests {
         assertTrue(LIC.LIC7(points2.length, points2, 26, 2));
         assertFalse(LIC.LIC7(points2.length, points2, 27, 2));
     }
+
+    //LIC9 Unit Tests
+
+    @Test
+    public void LIC9_false_when_numPoint_LessThan_5() {
+        /* Contract: If numPoints < 5, returns false (invalid input) */
+
+        int numPoints = 4;
+        Point[] points = new Point[] {
+            new Point(0,0), new Point(1,0), new Point(2,0), new Point(3,0)
+        };
+
+        Parameters p = new Parameters();
+        p.C_PTS = 1;
+        p.D_PTS = 1;
+        p.EPSILON = 0.1;
+
+        assertFalse(LIC.LIC9(numPoints, points, p));
+    }
+
+    @Test
+    public void LIC9_false_whenC_PTSorD_PTS_Invalid() {
+        /* Contract: If C_PTS < 1 or D_PTS < 1, LCI9 returns false (invalid input) */
+        
+        int numPoints = 5;
+        Point[] points = new Point[] {
+            new Point(0,0), new Point(1,0), new Point(2,0), new Point(3,0), new Point(4,0)
+        };
+
+        Parameters p1 = new Parameters();
+        p1.C_PTS = 0;
+        p1.D_PTS = 1;
+        p1.EPSILON = 0.1;
+
+        assertFalse(LIC.LIC9(numPoints, points, p1));
+
+        Parameters p2 = new Parameters();
+        p2.C_PTS = 1;
+        p2.D_PTS = 0;
+        p2.EPSILON = 0.1;
+        assertFalse(LIC.LIC9(numPoints, points, p2));
+    }
+
+    @Test
+    public void LIC9_false_When_C_PTSplusD_PTS_LesserOrEqualTo_numPoints_minus_three() {
+        /* Contract: If C_PTS + D_PTS > numPoints - 3, LIC9 returns false (invalid input) */
+        int numPoints = 5;
+
+        Point[] points = new Point[] {
+            new Point(0,0), new Point(1,0), new Point(2,0), new Point(3,0), new Point(4,0)
+        };
+
+        Parameters p = new Parameters();
+        p.C_PTS = 2;
+        p.D_PTS = 1;
+        p.EPSILON = 0.1;
+
+        assertFalse(LIC.LIC9(numPoints, points, p));
+    }
+
+    @Test
+    public void LIC9_true_When_AngleOutside_PIPlusMinusEpsilon() {
+        /* Contract: LIC9 returns true iff there exists points A,B,C with the required spacing
+        such that the angle at B is < (PI - EPSILON) or > (PI + EPSILON) */
+
+        int numPoints = 5;
+
+        Point[] points = new Point[] {
+            new Point(0, 0), // 0 = A
+            new Point(999, 999), // 1 = C_PTS
+            new Point(1, 0), // 2 = B
+            new Point(999, 999), // 3 = D_PTS
+            new Point(1, 1)  // 4 = C
+        };
+
+        Parameters p = new Parameters();
+        p.C_PTS = 1;
+        p.D_PTS = 1;
+        p.EPSILON = 0.1; 
+
+        assertTrue(LIC.LIC9(numPoints, points, p));
+    }
+
+    @Test
+    public void LIC9_false_AllEvaluatingAngles_AreWithin_PIPlusMinusEpsilon() {
+        /* Contract:  If for every valid triple A,B,C (with required spacing),
+        the angle at B lies within [PI - EPSILON, PI + EPSILON], LIC9 returns false */
+
+        int numPoints = 5;
+
+        Point[] points = new Point[] {
+            new Point(0, 0), // 0 = A
+            new Point(111, 111), // 1 = C_PTS
+            new Point(1, 0), // 2 = B
+            new Point(222, 222), // 3 = D_PTS
+            new Point(2, 0) // 4 = C
+        };
+
+        Parameters p = new Parameters();
+        p.C_PTS = 1;
+        p.D_PTS = 1;
+        p.EPSILON = 0.01;
+
+        assertFalse(LIC.LIC9(numPoints, points, p));
+    }
+
+    @Test
+    public void  LIC9_false_when_SkippedTriples_Where_A_equals_B_or_C_equals_B_IfNoOtherTriplesSatisfies() {
+        /* Contract: f A==B or C==B, the angle is undefined and that triple is ignored.
+        If no other valid triple satisfies the angle condition, LIC9 returns false. */
+        
+        int numPoints = 5;
+
+        Point[] points = new Point[] {
+            new Point(1, 0),  // 0 = A
+            new Point(0, 0),  // 1 = C_PTS
+            new Point(1, 0),  // 2 = B
+            new Point(0, 0),  // 3 = D_PTS
+            new Point(2, 0)   // 4 = C
+        };
+
+        Parameters p = new Parameters();
+        p.C_PTS = 1;
+        p.D_PTS = 1;
+        p.EPSILON = 0.1;
+
+        assertFalse(LIC.LIC9(numPoints, points, p));
+    } 
 }
