@@ -18,8 +18,26 @@ public class LICTests {
     }
 
     @Test
+    public void testDirectedAngleFunction() {
+        /* Contract: returns the directed angle formed by three points */
+        assertAll(
+            () -> assertEquals(Math.PI / 2.0, // 90°
+                Point.directedAngle(new Point(1,0), new Point(0,0), new Point(0,1))),
+
+            () -> assertEquals(Math.PI, // 180°
+                 Point.directedAngle(new Point(-1,0), new Point(0,0), new Point(1,0))),
+
+            () -> assertEquals(3.0 * Math.PI / 2.0, // 270°
+                 Point.directedAngle(new Point(1,0), new Point(0,0), new Point(0,-1))),
+
+            () -> assertEquals(0.0, // 0°
+                Point.directedAngle(new Point(1,0), new Point(0,0), new Point(2,0)))
+        );
+    }
+
+    @Test
     /* Contract: returns the area of a triangle formed by the three points */
-    public void testTriangleAreaFunction(){
+    public void testTriangleAreaFunction() {
         Point p1 = new Point(0.0, 0.0);
         Point p2 = new Point(4.0, 0.0);
         Point p3 = new Point(0.0, 3.0);
