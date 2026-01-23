@@ -31,4 +31,21 @@ public class Point {
         if (Math.sin(angle(p2, p1, p3)) < 0.0001) return 0; 
         return distance(p2, p3) / (2 * Math.sin(angle(p2, p1, p3)));
     }
+
+    public static double directedAngle(Point p1, Point p2, Point p3){
+        //a = p1 - p2, b = p3 - p2;
+        double ax = p1.x - p2.x;
+        double ay = p1.y - p2.y;
+        double bx = p3.x - p2.x;
+        double by = p3.y - p2.y;
+
+        double dotProduct = ax * bx + ay * by;
+        double crossProduct = ax * by - ay * bx;
+
+        double angle = Math.atan2(crossProduct, dotProduct); //(-pi, pi]
+        if (angle < 0) angle += 2 * Math.PI;  //[0, 2pi)
+
+        return angle;
+
+    }
 }
