@@ -45,4 +45,27 @@ public class LIC {
         return false;
     }
 
+    public static boolean LIC9(int numPoints, Point[] points, Parameters p){
+        if(numPoints < 5) return false;
+        if(p.C_PTS < 1 || p.D_PTS < 1) return false;
+        if(p.C_PTS + p.D_PTS > numPoints - 3) return false;
+
+        for(int i = 0; i + p.C_PTS + p.D_PTS + 2 < numPoints; i++){
+
+            Point a = points[i];
+            Point b = points[i + p.C_PTS + 1];
+            Point c = points[i + p.C_PTS + p.D_PTS + 2];
+
+            /* If either the first point or the last point (or both) coincide with the vertex, 
+            the angle is undefined and the LIC is not satisfied by those three points. */
+            if((a.x == b.x && a.y == b.y) || (c.x == b.x && c.y == b.y)) continue;
+
+            double ang = Point.angle(a, b, c);
+
+            if((ang < Math.PI - p.EPSILON) || (ang > Math.PI + p.EPSILON)) return true;
+        }
+
+        return false;
+    }
+
 }
