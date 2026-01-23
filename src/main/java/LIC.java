@@ -79,4 +79,24 @@ public class LIC {
         return false;
     }
 
+    public static boolean LIC12(int numPoints, Point[] points , Parameters p){
+        if(numPoints < 3) return false;
+        if(p.LENGTH2 < 0) return false; 
+
+        boolean condA = false; /* Exists pair with distance > LENGTH1 */
+        boolean condB = false; /* Exists pair with distance < LENGTH2 */
+
+        for(int i = 0; i + p.K_PTS + 1 < numPoints; i++){
+
+            double dist = Point.distance(points[i], points[i + p.K_PTS + 1]);
+
+            if(dist > p.LENGTH1) condA = true;
+            if(dist < p.LENGTH2) condB = true;
+
+            if(condA && condB) return true;
+        }
+
+        return false;
+    }
+
 }
