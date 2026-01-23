@@ -71,7 +71,7 @@ public class LIC {
             the angle is undefined and the LIC is not satisfied by those three points. */
             if((a.x == b.x && a.y == b.y) || (c.x == b.x && c.y == b.y)) continue;
 
-            double ang = Point.angle(a, b, c);
+            double ang = Point.directedAngle(a, b, c);
 
             if((ang < Math.PI - p.EPSILON) || (ang > Math.PI + p.EPSILON)) return true;
         }
