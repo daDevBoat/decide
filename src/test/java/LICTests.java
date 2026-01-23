@@ -104,6 +104,65 @@ public class LICTests {
         assertFalse(LIC.LIC2(points4.length, points3, (3.14159265359/2)+0.01));
     }
 
+    
+    //LIC3 Unit Tests
+
+    @Test
+    void LIC3_true_Triangle_GreaterThan_AREA1() {
+        /* Contract: LIC must return true iff exists at least one set of three consecutive points 
+                     that form a triangle with area strictly greater than AREA1. */
+
+        int numPoints = 3;
+
+        Point[] points = new Point[] {
+            new Point(0.0, 0.0),
+            new Point(4.0, 0.0),
+            new Point(0.0, 3.0), 
+        };
+
+        Parameters p = new Parameters();
+        p.AREA1 = 5.0;
+
+        assertTrue(LIC.LIC3(numPoints, points, p));
+    }
+
+    @Test
+    void LIC3_false_Triangle_NotGreaterThan_AREA1() {
+        /* Contract: If for every three consecutive points, the triangle area 
+                     is NOT strictly greater than AREA1, then LIC3 must return false. */
+        
+        int numPoints = 3;
+
+        Point[] points = new Point[] {
+            new Point(0.0, 0.0),
+            new Point(2.0, 0.0),
+            new Point(0.0, 1.0), 
+        };
+
+        Parameters p = new Parameters();
+        p.AREA1 = 2.0;
+
+        assertFalse(LIC.LIC3(numPoints, points, p));
+    }
+
+    @Test
+    void LIC3_false_InputInvalid_numPoints_Equals_2() {
+        /* Contract: If there are 2 points, LIC3 has no valid triple consecutive points to evaluate, 
+                     therefore it must return false. */
+
+        int numPoints = 2;
+
+        Point[] points = new Point[] {
+            new Point(0.0, 0.0),
+            new Point(4.0, 0.0),
+        };
+
+        Parameters p = new Parameters();
+        p.AREA1 = 0.0;
+
+        assertFalse(LIC.LIC3(numPoints, points, p));
+    }
+
     @Test
     public void testLIC7() {
         Point[] points1 = new Point[] {
@@ -124,6 +183,5 @@ public class LICTests {
         assertFalse(LIC.LIC7(points1.length, points1, 6, 1));
         assertTrue(LIC.LIC7(points2.length, points2, 26, 2));
         assertFalse(LIC.LIC7(points2.length, points2, 27, 2));
-        
     }
 }
