@@ -330,4 +330,106 @@ public class LICTests {
 
         assertFalse(LIC.LIC9(numPoints, points, p));
     } 
+
+    //LIC12 Unit Tests
+    
+    @Test
+    public void LIC12_true_existsPair_GreaterThan_LENGTH1_and_existsPair_LessThan_LENGTH2() {
+
+        int numPoints = 5;
+
+        Parameters p = new Parameters();
+        p.K_PTS = 1;
+        p.LENGTH1 = 5.0;
+        p.LENGTH2 = 2.0;
+
+        Point[] points = new Point[] {
+            new Point(0,0),  
+            new Point(0,0),  
+            new Point(6,0),  
+            new Point(0,0),  
+            new Point(7,0)
+        };
+
+        assertTrue(LIC.LIC12(numPoints, points, p));
+    }
+
+    @Test
+    public void LIC12_false_when_onlyGreaterThan_LENGTH1() {
+
+        int numPoints = 5;
+
+        Parameters p = new Parameters();
+        p.K_PTS = 1;
+        p.LENGTH1 = 5.0;
+        p.LENGTH2 = 2.0;
+
+        Point[] points = new Point[] {
+            new Point(0,0),
+            new Point(0,0),
+            new Point(6,0),
+            new Point(0,3),
+            new Point(20,0)
+        };
+
+        assertFalse(LIC.LIC12(numPoints, points, p));
+    }
+
+    @Test
+    public void LIC12_false_whenOnlyLessThan_LENGTH2() {
+
+        int numPoints = 5;
+
+        Parameters p = new Parameters();
+        p.K_PTS = 1;
+        p.LENGTH1 = 5.0;
+        p.LENGTH2 = 2.0;
+
+        Point[] points = new Point[] {
+            new Point(0,0),
+            new Point(0,0),
+            new Point(1,0),
+            new Point(0,0),
+            new Point(2,0)
+        };
+
+        assertFalse(LIC.LIC12(numPoints, points, p));
+    }
+
+    @Test
+    public void LIC12_false_when_numPoints_lessThan_3() {
+
+        int numPoints = 2;
+
+        Parameters p = new Parameters();
+        p.K_PTS = 1;
+        p.LENGTH1 = 5.0;
+        p.LENGTH2 = 2.0;
+
+        Point[] points = new Point[] {
+            new Point(0,0),
+            new Point(1,0)
+        };
+
+        assertFalse(LIC.LIC12(numPoints, points, p));
+    }
+
+    @Test
+    public void LIC12_false_when_LENGTH2_IsNegative() {
+
+        int numPoints = 3;
+
+        Parameters p = new Parameters();
+        p.K_PTS = 1;
+        p.LENGTH1 = 5.0;
+        p.LENGTH2 = -1.0; 
+
+        Point[] points = new Point[] {
+                new Point(0,0),
+                new Point(0,0),
+                new Point(6,0)
+        };
+
+        assertFalse(LIC.LIC12(numPoints, points, p));
+    }
 }
