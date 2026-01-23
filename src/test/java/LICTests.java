@@ -18,6 +18,16 @@ public class LICTests {
     }
 
     @Test
+    /* Contract: returns the area of a triangle formed by the three points */
+    public void testTriangleAreaFunction(){
+        Point p1 = new Point(0.0, 0.0);
+        Point p2 = new Point(4.0, 0.0);
+        Point p3 = new Point(0.0, 3.0);
+
+        assertEquals(6.0, Point.triangleArea(p1, p2, p3));
+    }
+
+    @Test
     public void testCircleRadiusFunction() {
         Point p1 = new Point(2, 2);
         Point p2 = new Point(8, 2);
