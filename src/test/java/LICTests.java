@@ -203,6 +203,64 @@ public class LICTests {
         assertFalse(LIC.LIC7(points2.length, points2, 27, 2));
     }
 
+    @Test
+    public void testLIC8() {
+        /* Contract: LIC8 returns true if and only if there exists at least one set of three data points 
+        separated by exactly A PTS and B PTS
+        consecutive intervening points, respectively, that cannot be contained within or on a circle of
+        radius RADIUS1. The condition is not met when NUMPOINTS < 5.
+        1 ≤ A PTS, 1 ≤ B PTS
+        A PTS+B PTS ≤ (NUMPOINTS−3) */
+
+        Point[] points1 = new Point[] {
+            new Point(0, 10),
+            new Point(0, 0),
+            new Point(-10, 0),
+            new Point(10,0)
+       };
+        //Tests that false is returned when NUMPOINTS < 5
+        assertFalse(LIC.LIC8(points1.length, points1, 3, 1,1));
+
+        Point[] points2 = new Point[] {
+            new Point(0, 10),
+            new Point(0, 0),
+            new Point(-10, 0),
+            new Point(0,-1),
+            new Point(10,0)
+       };
+        //Tests that false is returned when A PTS < 1
+        assertFalse(LIC.LIC8(points2.length, points2, 1, 0,1));
+
+        //Tests that false is returned when B PTS < 1
+        assertFalse(LIC.LIC8(points2.length, points2, 1, 1,0));
+
+        //Tests that false is returned when A PTS + B PTS > (NUMPOINTS-3)
+        assertFalse(LIC.LIC8(points2.length, points2, 1, 2,1));
+
+        //Tests that false is returned when there exists a set of three data points separated by exactly A PTS and B PTS
+        //consecutive intervening points, respectively, that can be contained within or on a circle of
+        //radius RADIUS1
+        assertFalse(LIC.LIC8(points2.length, points2, 100, 1,1));
+
+        Point[] points3 = new Point[] {
+            new Point(0, 10),
+            new Point(-10, 0),
+            new Point(0, 10),
+            new Point(10,0),
+            new Point(0,10),
+       };
+
+        // Tests that false is returned if there exists at least
+        // one set of three data points which are not separated by exactly A PTS and B PTS
+        //consecutive intervening points, respectively, that cannot be contained within or on a circle of
+        //radius RADIUS1.
+        assertFalse(LIC.LIC8(points3.length, points3, 1, 1,1));
+
+        //Tests that true is returned for a valid input
+        assertTrue(LIC.LIC8(points2.length, points2, 1, 1,1));
+    }
+
+
     //LIC9 Unit Tests
 
     @Test

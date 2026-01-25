@@ -56,6 +56,21 @@ public class LIC {
         return false;
     }
 
+    public static boolean LIC8(int numPoints, Point[] points, double RADIUS1, int A_PTS, int B_PTS) {
+        if (A_PTS < 1 || B_PTS < 1 || numPoints < 5 || A_PTS+B_PTS > (numPoints-3)){
+            return false;
+        }
+        for (int i = 0; i + A_PTS+B_PTS < numPoints-2; i++){
+            Point p1 = points[i];
+            Point p2 = points[i+A_PTS+1];
+            Point p3 = points[i+A_PTS+B_PTS+2];
+            if (Point.circleRadius(p1, p2, p3) > RADIUS1){
+                return true;
+            }
+        }
+        return false; 
+    }
+
     public static boolean LIC9(int numPoints, Point[] points, Parameters p){
         if(numPoints < 5) return false;
         if(p.C_PTS < 1 || p.D_PTS < 1) return false;
