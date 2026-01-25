@@ -99,4 +99,18 @@ public class LIC {
         return false;
     }
 
+
+    public static boolean LIC13(int numPoints, Point[] points, double RADIUS1, int A_PTS, int B_PTS, double RADIUS2) {
+        if (numPoints < 5 || RADIUS2 < 0) return false;
+        boolean not_contained_flag = false, contained_flag = false;
+        for (int i = 0; i < numPoints - A_PTS - B_PTS - 2; i++) {
+            double radius = Point.circleRadius(points[i], points[i + A_PTS + 1], points[i + A_PTS + B_PTS + 2]);
+            
+            if (radius > RADIUS1) not_contained_flag = true;
+            if (radius <= RADIUS2) contained_flag = true;
+
+            if (not_contained_flag && contained_flag) return true;
+        }
+        return false;
+    }
 }
