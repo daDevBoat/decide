@@ -117,6 +117,21 @@ public class LIC {
         return false;
     }
 
+    public static boolean LIC10(int numPoints, Point[] points, int E_PTS, int F_PTS, double AREA1) {
+        if (numPoints < 5 || E_PTS < 1 ||F_PTS < 1 || E_PTS + F_PTS > numPoints - 3) return false;
+
+        for (int i = 0; i < numPoints - F_PTS - E_PTS - 2; i ++) {
+            Point p1 = points[i];
+            Point p2 = points[i + E_PTS + 1];
+            Point p3 = points[i + E_PTS + F_PTS + 2];
+            
+            if (Point.triangleArea(p1, p2, p3) > AREA1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean LIC12(int numPoints, Point[] points , Parameters p){
         if(numPoints < 3) return false;
         if(p.LENGTH2 < 0) return false; 
