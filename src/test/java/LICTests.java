@@ -455,7 +455,8 @@ public class LICTests {
         p.EPSILON = 0.1;
 
         assertFalse(LIC.LIC9(numPoints, points, p));
-    }
+    } 
+
 
     @Test
     public void LIC10_false_when_too_few_points() {
@@ -503,6 +504,63 @@ public class LICTests {
         };
         assertTrue(LIC.LIC10(points.length, points, 1, 1, 10.0));
     }
+
+  @Test
+    public void testLIC11() {
+        /* Contract: LIC11 returns true if and only if there exists at least one set of two data points, 
+        (X[i],Y[i]) and (X[j],Y[j]), separated by
+        exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j ) The
+        condition is not met when NUMPOINTS < 3.
+        1 ≤ G PTS ≤ NUMPOINTS−2 */
+
+        Point[] points1 = new Point[] {
+            new Point(1, -1),  
+            new Point(0, 0),  
+            new Point(-1, 1) 
+        };
+
+        Point[] points2 = new Point[] {
+            new Point(1, -1),  
+            new Point(-1, 1) 
+        };
+
+        Point[] points3 = new Point[] {
+            new Point(-1, -1),  
+            new Point(0, 0),  
+            new Point(1, 1) 
+        };
+
+        Point[] points4 = new Point[] {
+            new Point(1, -1),  
+            new Point(-1, 1),
+            new Point(2, 1)  
+
+        };
+
+        //Tests that false is returned when NUMPOINTS < 3
+        assertFalse(LIC.LIC11(points2.length, points2, 1));
+
+        //Tests that false is returned when G_PTS < 1
+        assertFalse(LIC.LIC11(points1.length, points1, 0));
+
+        //Tests that false is returned when NUMPOINTS-2 < G_PTS
+        assertFalse(LIC.LIC11(points1.length, points1, 2));
+
+        //Tests that false is returned when there does not exist at least one set of two data points, 
+        //(X[i],Y[i]) and (X[j],Y[j]), separated by
+        //exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j )
+        assertFalse(LIC.LIC11(points3.length, points3, 2));
+
+        //Tests that false is returned if there exists at least one set of two data points, 
+        //(X[i],Y[i]) and (X[j],Y[j]), which are not separated by
+        //exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j )
+        assertFalse(LIC.LIC11(points4.length, points4, 1));
+
+        //Tests that true is returned for an input which fulfills the contract
+        assertTrue(LIC.LIC11(points1.length, points1, 1));
+
+    }
+
 
     // LIC12 Unit Tests
 
