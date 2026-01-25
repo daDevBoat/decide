@@ -1,3 +1,5 @@
+import static java.lang.Math.PI;
+import static java.lang.Math.max;
 
 public class Point {
     double x;
@@ -28,8 +30,18 @@ public class Point {
 
     // Formula retrieved from: https://math.stackexchange.com/questions/213658/get-the-equation-of-a-circle-when-given-3-points
     public static double circleRadius(Point p1, Point p2, Point p3) {
-        if (Math.sin(angle(p2, p1, p3)) < 0.0001) return 0; 
-        return distance(p2, p3) / (2 * Math.sin(angle(p2, p1, p3)));
+        double max_angle = max(Point.angle(p1, p2, p3), Point.angle(p3, p1, p2));
+        max_angle = max(max_angle, Point.angle(p2, p3, p1));
+
+        if (max_angle < PI / 2) {
+            return distance(p2, p3) / (2 * Math.sin(angle(p2, p1, p3)));
+        } else {
+            double max_distance = max(Point.distance(p1, p2), Point.distance(p1, p3));
+            max_distance = max(max_distance, Point.distance(p2, p3));
+
+            return max_distance / 2;
+        }
+        
     }
 
     public static double directedAngle(Point p1, Point p2, Point p3){

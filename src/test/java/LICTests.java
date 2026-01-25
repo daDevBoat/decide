@@ -431,5 +431,30 @@ public class LICTests {
         };
 
         assertFalse(LIC.LIC12(numPoints, points, p));
+
     }
+
+    @Test
+    public void testLIC13() {
+        Point[] points = new Point[] {
+            new Point(2, 2),
+            new Point(100, 100),
+            new Point(8, 2),
+            new Point(101, 101),
+            new Point(6, 5),
+            new Point(99, 99),
+            new Point(5, 11)
+        };
+        
+        double radius = Point.circleRadius(points[0], points[2], points[4]);
+        double radius2 = Point.circleRadius(points[1], points[3], points[5]);
+        double radius3 = Point.circleRadius(points[0], points[2], points[6]);
+        System.out.println(radius);
+        System.out.println(radius2);
+        System.out.println(radius3);
+
+        assertTrue(LIC.LIC13(points.length, points, 3, 1, 1, 1.5));
+        assertFalse(LIC.LIC13(points.length, points, 3, 1, 1, 1.4));
+    }
+
 }
