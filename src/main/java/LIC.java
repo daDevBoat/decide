@@ -132,6 +132,20 @@ public class LIC {
         return false;
     }
 
+    public static boolean LIC11(int numPoints, Point[] points , int G_PTS){
+        if (numPoints < 3 || 1 > G_PTS || G_PTS > numPoints-2){
+            return false;
+        }
+        for (int i = 0; i + G_PTS < numPoints-1; i++){
+            Point p1 = points[i];
+            Point p2 = points[i+G_PTS+1];
+            if (p2.x - p1.x < 0){
+                return true; 
+            }
+        }
+        return false; 
+    }
+
     public static boolean LIC12(int numPoints, Point[] points , Parameters p){
         if(numPoints < 3) return false;
         if(p.LENGTH2 < 0) return false; 
