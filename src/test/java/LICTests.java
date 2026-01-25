@@ -457,6 +457,53 @@ public class LICTests {
         assertFalse(LIC.LIC9(numPoints, points, p));
     }
 
+    @Test
+    public void LIC10_false_when_too_few_points() {
+        Point [] points = new Point[] {
+                new Point(1, 0),
+                new Point(0, 0),
+                new Point(1, 0)
+        };
+        assertFalse(LIC.LIC10(3, points, 2, 2, 10.0));
+    }
+
+    @Test
+    public void LIC10_false_when_EPTS_plus_FTPS_too_large() {
+        Point [] points = new Point[] {
+                new Point(1, 0),
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(0, 0),
+                new Point(1, 0)
+        };
+        assertFalse(LIC.LIC10(5, points, 1, 2, 10.0));
+    }
+
+    @Test
+    public void LIC10_false_with_smaller_area() {
+        Point [] points = new Point[] {
+                new Point(1, 0),
+                new Point(0, 1),
+                new Point(2, 0),
+                new Point(0, 2),
+                new Point(1, 1),
+                new Point(1, 1)
+        };
+        assertFalse(LIC.LIC10(points.length, points, 1, 1, 10.0));
+    }
+
+    @Test
+    public void LIC10_true() {
+        Point [] points = new Point[] {
+                new Point(10, 0),
+                new Point(0, 0),
+                new Point(20, 0),
+                new Point(0, 0),
+                new Point(10, 10)
+        };
+        assertTrue(LIC.LIC10(points.length, points, 1, 1, 10.0));
+    }
+
     // LIC12 Unit Tests
 
     @Test
