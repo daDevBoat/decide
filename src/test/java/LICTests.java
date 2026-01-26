@@ -19,8 +19,11 @@ public class LICTests {
     @Test
     public void testMatrix() {
         Matrix m = new Matrix(5, 5);
-        m.matrixArray[2][2] = Cond.ANDD;
         System.out.println(m);
+        m.updateElement(2, 2, Cond.NOTUSED);
+        m.updateElement(1, 1, Cond.ORR);
+        System.out.println(m);
+        System.out.println("fetched (2, 2):" + m.getElement(2, 2));
     }
 
     @Test
