@@ -11,17 +11,17 @@ public class Matrix {
     */
 
     int M, N;
-    int[][] matrixArray;
+    Cond[][] matrixArray;
 
     Matrix(int M, int N) {
         this.M = M;
         this.N = N;
 
-        this.matrixArray = new int[M][N];
+        this.matrixArray = new Cond[M][N];
 
         for (int i = 0; i < M;  i++) {
             for (int j = 0; j < N; j++) {
-                matrixArray[i][j] = -1;
+                matrixArray[i][j] = Cond.INIT;
             }
         }
     }
@@ -33,9 +33,9 @@ public class Matrix {
         for (int i = 0; i < M;  i++) {
             printString += "[";
             for (int j = 0; j < N - 1; j++) {
-                printString += matrixArray[i][j] + " ";
+                printString += matrixArray[i][j].value + " ";
             }
-            printString += matrixArray[i][N - 1] + "]\n";
+            printString += matrixArray[i][N - 1].value + "]\n";
         }
         return printString;
     }

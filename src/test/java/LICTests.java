@@ -19,6 +19,7 @@ public class LICTests {
     @Test
     public void testMatrix() {
         Matrix m = new Matrix(5, 5);
+        m.matrixArray[2][2] = Cond.ANDD;
         System.out.println(m);
     }
 
