@@ -48,4 +48,12 @@ public class Matrix {
         return matrixArray[m][n];
     }
 
+    public boolean evalLine(int line) {
+        if (line < 0 || line >= this.M) throw new IllegalArgumentException("Invalid line");
+
+        for (int column = 0; column < this.N; column++) {
+            if (this.getElement(line, column) != Cond.TRUE) return false;
+        }
+        return true;
+    }
 }

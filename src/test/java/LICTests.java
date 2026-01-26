@@ -1,4 +1,6 @@
 import org.junit.jupiter.api.Test;
+
+import static java.lang.Math.PI;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LICTests {
@@ -14,16 +16,6 @@ public class LICTests {
         Point p2 = new Point(1, 0);
         Point p3 = new Point(1, 3);
         assertEquals(Point.angle(p1, p2, p3), 3.14159 / 2, 0.0001);
-    }
-
-    @Test
-    public void testMatrix() {
-        Matrix m = new Matrix(5, 5);
-        System.out.println(m);
-        m.updateElement(2, 2, Cond.NOTUSED);
-        m.updateElement(1, 1, Cond.ORR);
-        System.out.println(m);
-        System.out.println("fetched (2, 2):" + m.getElement(2, 2));
     }
 
     @Test
@@ -76,38 +68,48 @@ public class LICTests {
 
     @Test
     void LIC0_true_with_greater_distance() {
+        Parameters p = new Parameters();
+        p.LENGTH1 = 4;
         Point[] pts = { new Point(0, 0), new Point(3, 4) };
-        assertTrue(LIC.LIC0(pts.length, pts, 4));
+        assertTrue(LIC.LIC0(pts.length, pts, p));
     }
 
     @Test
     void LIC0_false_with_smaller_distance() {
+        Parameters p = new Parameters();
+        p.LENGTH1 = 20;
         Point[] pts = { new Point(0, 0), new Point(3, 4) };
-        assertFalse(LIC.LIC0(pts.length, pts, 20));
+        assertFalse(LIC.LIC0(pts.length, pts, p));
     }
 
     @Test
     void LIC0_false_with_too_few_points() {
+        Parameters p = new Parameters();
+        p.LENGTH1 = 4;
         Point[] pts = { new Point(0, 0) };
-        assertFalse(LIC.LIC0(pts.length, pts, 4));
+        assertFalse(LIC.LIC0(pts.length, pts, p));
     }
 
     @Test
     void testLIC1() {
+        Parameters p = new Parameters();
+        p.RADIUS1 = 3;
         Point[] points = new Point[] {
                 new Point(2, 2),
                 new Point(8, 2),
                 new Point(6, 5)
         };
 
-        assertTrue(LIC.LIC1(points.length, points, 3));
+        assertTrue(LIC.LIC1(points.length, points, p));
         points[0].x = 2.1;
-        assertFalse(LIC.LIC1(points.length, points, 3));
+        assertFalse(LIC.LIC1(points.length, points, p));
 
     }
 
     @Test
     public void testLIC2() {
+        Parameters p = new Parameters();
+        p.EPSILON = 0.01;
 
         Point[] points1 = new Point[] {
                 new Point(2, 2),
@@ -134,12 +136,16 @@ public class LICTests {
                 new Point(-3, -1)
         };
 
-        assertFalse(LIC.LIC2(points1.length, points1, 0.01));
-        assertFalse(LIC.LIC2(points2.length, points2, 0.01));
-        assertTrue(LIC.LIC2(points3.length, points3, (3.14159265359 / 2) - 0.01));
-        assertFalse(LIC.LIC2(points4.length, points4, -0.01));
-        assertFalse(LIC.LIC2(points4.length, points4, 3.14159265359 + 0.01));
-        assertFalse(LIC.LIC2(points4.length, points3, (3.14159265359 / 2) + 0.01));
+        assertFalse(LIC.LIC2(points1.length, points1, p));
+        assertFalse(LIC.LIC2(points2.length, points2, p));
+        p.EPSILON = (PI / 2) - 0.01;
+        assertTrue(LIC.LIC2(points3.length, points3, p));
+        p.EPSILON = -0.01;
+        assertFalse(LIC.LIC2(points4.length, points4, p));
+        p.EPSILON = PI + 0.01;
+        assertFalse(LIC.LIC2(points4.length, points4, p));
+        p.EPSILON = PI / 2 + 0.01;
+        assertFalse(LIC.LIC2(points4.length, points3, p));
     }
 
     // LIC3 Unit Tests
@@ -152,6 +158,7 @@ public class LICTests {
          * that form a triangle with area strictly greater than AREA1.
          */
 
+        
         int numPoints = 3;
 
         Point[] points = new Point[] {
@@ -210,8 +217,9 @@ public class LICTests {
 
     @Test
     public void testLIC6() {
-        int N_PTS = 3;
-        double DIST = 3.0;
+        Parameters p = new Parameters();
+        p.N_PTS = 3;
+        p.DIST = 3;
         Point[] points1 = new Point[] {
                 new Point(0, 0),
                 new Point(1, 0),
@@ -223,7 +231,7 @@ public class LICTests {
                 new Point(1, 2),
                 new Point(6, 0)
         };
-        assertFalse(LIC.LIC6(points1.length, points1, N_PTS, DIST));
+        assertFalse(LIC.LIC6(points1.length, points1, p));
 
         Point[] points2 = new Point[] {
                 new Point(0, 0),
@@ -237,9 +245,10 @@ public class LICTests {
                 new Point(6, 0),
                 new Point(1, -1)
         };
-        assertTrue(LIC.LIC6(points2.length, points2, N_PTS, DIST));
-        assertFalse(LIC.LIC6(2, points2, N_PTS, DIST));
-        assertFalse(LIC.LIC6(points2.length, points2, 2, DIST));
+        assertTrue(LIC.LIC6(points2.length, points2, p));
+        assertFalse(LIC.LIC6(2, points2, p));
+        p.N_PTS = 2;
+        assertFalse(LIC.LIC6(points2.length, points2, p));
     }
 
     @Test
@@ -258,10 +267,18 @@ public class LICTests {
                 new Point(-12, 5)
         };
 
-        assertTrue(LIC.LIC7(points1.length, points1, 5.9, 1));
-        assertFalse(LIC.LIC7(points1.length, points1, 6, 1));
-        assertTrue(LIC.LIC7(points2.length, points2, 26, 2));
-        assertFalse(LIC.LIC7(points2.length, points2, 27, 2));
+        Parameters p = new Parameters();
+        p.K_PTS = 1;
+        p.LENGTH1 = 5.9;
+
+        assertTrue(LIC.LIC7(points1.length, points1, p));
+        p.LENGTH1 = 6;
+        assertFalse(LIC.LIC7(points1.length, points1, p));
+        p.K_PTS = 2;
+        p.LENGTH1 = 26;
+        assertTrue(LIC.LIC7(points2.length, points2, p));
+        p.LENGTH1 = 27;
+        assertFalse(LIC.LIC7(points2.length, points2, p));
     }
 
     @Test
@@ -284,7 +301,11 @@ public class LICTests {
                 new Point(10, 0)
         };
         // Tests that false is returned when NUMPOINTS < 5
-        assertFalse(LIC.LIC8(points1.length, points1, 3, 1, 1));
+        Parameters p = new Parameters();
+        p.RADIUS1 = 3;
+        p.A_PTS = 1;
+        p.B_PTS  = 1;
+        assertFalse(LIC.LIC8(points1.length, points1, p));
 
         Point[] points2 = new Point[] {
                 new Point(0, 10),
@@ -293,21 +314,33 @@ public class LICTests {
                 new Point(0, -1),
                 new Point(10, 0)
         };
+
+        
+        p.RADIUS1 = 1;
+        p.A_PTS = 0;
+        p.B_PTS  = 1;
+
         // Tests that false is returned when A PTS < 1
-        assertFalse(LIC.LIC8(points2.length, points2, 1, 0, 1));
+        assertFalse(LIC.LIC8(points2.length, points2, p));
 
         // Tests that false is returned when B PTS < 1
-        assertFalse(LIC.LIC8(points2.length, points2, 1, 1, 0));
+        p.A_PTS = 1;
+        p.B_PTS = 0;
+        assertFalse(LIC.LIC8(points2.length, points2, p));
 
         // Tests that false is returned when A PTS + B PTS > (NUMPOINTS-3)
-        assertFalse(LIC.LIC8(points2.length, points2, 1, 2, 1));
+        p.A_PTS = 2;
+        p.B_PTS = 1;
+        assertFalse(LIC.LIC8(points2.length, points2, p));
 
         // Tests that false is returned when there exists a set of three data points
         // separated by exactly A PTS and B PTS
         // consecutive intervening points, respectively, that can be contained within or
         // on a circle of
         // radius RADIUS1
-        assertFalse(LIC.LIC8(points2.length, points2, 100, 1, 1));
+        p.RADIUS1 = 100;
+        p.A_PTS = 1;
+        assertFalse(LIC.LIC8(points2.length, points2, p));
 
         Point[] points3 = new Point[] {
                 new Point(0, 10),
@@ -323,10 +356,11 @@ public class LICTests {
         // consecutive intervening points, respectively, that cannot be contained within
         // or on a circle of
         // radius RADIUS1.
-        assertFalse(LIC.LIC8(points3.length, points3, 1, 1, 1));
+        p.RADIUS1 = 1;
+        assertFalse(LIC.LIC8(points3.length, points3, p));
 
         // Tests that true is returned for a valid input
-        assertTrue(LIC.LIC8(points2.length, points2, 1, 1, 1));
+        assertTrue(LIC.LIC8(points2.length, points2, p));
     }
 
     // LIC9 Unit Tests
@@ -475,7 +509,11 @@ public class LICTests {
                 new Point(0, 0),
                 new Point(1, 0)
         };
-        assertFalse(LIC.LIC10(3, points, 2, 2, 10.0));
+        Parameters p = new Parameters();
+        p.E_PTS = 2;
+        p.F_PTS = 2;
+        p.AREA1 = 10;
+        assertFalse(LIC.LIC10(3, points, p));
     }
 
     @Test
@@ -487,7 +525,11 @@ public class LICTests {
                 new Point(0, 0),
                 new Point(1, 0)
         };
-        assertFalse(LIC.LIC10(5, points, 1, 2, 10.0));
+        Parameters p = new Parameters();
+        p.E_PTS = 1;
+        p.F_PTS = 2;
+        p.AREA1 = 10;
+        assertFalse(LIC.LIC10(5, points, p));
     }
 
     @Test
@@ -500,7 +542,11 @@ public class LICTests {
                 new Point(1, 1),
                 new Point(1, 1)
         };
-        assertFalse(LIC.LIC10(points.length, points, 1, 1, 10.0));
+        Parameters p = new Parameters();
+        p.E_PTS = 1;
+        p.F_PTS = 1;
+        p.AREA1 = 10;
+        assertFalse(LIC.LIC10(points.length, points, p));
     }
 
     @Test
@@ -512,7 +558,11 @@ public class LICTests {
                 new Point(0, 0),
                 new Point(10, 10)
         };
-        assertTrue(LIC.LIC10(points.length, points, 1, 1, 10.0));
+        Parameters p = new Parameters();
+        p.E_PTS = 1;
+        p.F_PTS = 1;
+        p.AREA1 = 10;
+        assertTrue(LIC.LIC10(points.length, points, p));
     }
 
   @Test
@@ -546,28 +596,33 @@ public class LICTests {
             new Point(2, 1)  
 
         };
-
+        Parameters p = new Parameters();
+        p.G_PTS = 1;
+    
         //Tests that false is returned when NUMPOINTS < 3
-        assertFalse(LIC.LIC11(points2.length, points2, 1));
+        assertFalse(LIC.LIC11(points2.length, points2, p));
 
         //Tests that false is returned when G_PTS < 1
-        assertFalse(LIC.LIC11(points1.length, points1, 0));
+        p.G_PTS = 0;
+        assertFalse(LIC.LIC11(points1.length, points1, p));
 
         //Tests that false is returned when NUMPOINTS-2 < G_PTS
-        assertFalse(LIC.LIC11(points1.length, points1, 2));
+        p.G_PTS = 2;
+        assertFalse(LIC.LIC11(points1.length, points1, p));
 
         //Tests that false is returned when there does not exist at least one set of two data points, 
         //(X[i],Y[i]) and (X[j],Y[j]), separated by
         //exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j )
-        assertFalse(LIC.LIC11(points3.length, points3, 2));
+        assertFalse(LIC.LIC11(points3.length, points3, p));
 
         //Tests that false is returned if there exists at least one set of two data points, 
         //(X[i],Y[i]) and (X[j],Y[j]), which are not separated by
         //exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j )
-        assertFalse(LIC.LIC11(points4.length, points4, 1));
+        p.G_PTS = 1;
+        assertFalse(LIC.LIC11(points4.length, points4, p));
 
         //Tests that true is returned for an input which fulfills the contract
-        assertTrue(LIC.LIC11(points1.length, points1, 1));
+        assertTrue(LIC.LIC11(points1.length, points1, p));
 
     }
 
@@ -694,8 +749,15 @@ public class LICTests {
         System.out.println(radius2);
         System.out.println(radius3);
 
-        assertTrue(LIC.LIC13(points.length, points, 3, 1, 1, 1.5));
-        assertFalse(LIC.LIC13(points.length, points, 3, 1, 1, 1.4));
+        Parameters p = new Parameters();
+        p.RADIUS1 = 3;
+        p.A_PTS = 1;
+        p.B_PTS = 1;
+        p.RADIUS2 = 1.5;
+
+        assertTrue(LIC.LIC13(points.length, points, p));
+        p.RADIUS2 = 1.4;
+        assertFalse(LIC.LIC13(points.length, points, p));
     }
 
 }
