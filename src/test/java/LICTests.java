@@ -17,16 +17,6 @@ public class LICTests {
     }
 
     @Test
-    public void testMatrix() {
-        Matrix m = new Matrix(5, 5);
-        System.out.println(m);
-        m.updateElement(2, 2, Cond.NOTUSED);
-        m.updateElement(1, 1, Cond.ORR);
-        System.out.println(m);
-        System.out.println("fetched (2, 2):" + m.getElement(2, 2));
-    }
-
-    @Test
     public void testDirectedAngleFunction() {
         /* Contract: returns the directed angle formed by three points */
         assertAll(
