@@ -100,6 +100,15 @@ public class LICTests {
     }
 
     @Test
+    // Contract: LIC0 is false iff LENGTH1 < 0
+    void LIC0_false_with_length_too_small() {
+        Parameters p = new Parameters();
+        p.LENGTH1 = -1;
+        Point[] pts = { new Point(0, 0), new Point(3, 4)};
+        assertFalse(LIC.LIC0(pts.length, pts, p));
+    }
+
+    @Test
     void testLIC1() {
         Parameters p = new Parameters();
         p.RADIUS1 = 3;
@@ -286,8 +295,28 @@ public class LICTests {
                 new Point(0, 0),
                 new Point(1, 0)
         };
-        assertFalse(LIC.LIC6(2, points3, p));
+        assertFalse(LIC.LIC6(points3.length, points3, p));
+    }
 
+     @Test
+    public void LIC6_false_with_DIST_too_small() {
+        // Contract: LIC6 is false iff DIST < 0
+        Parameters p = new Parameters();
+        p.N_PTS = 3;
+        p.DIST = -1;
+        Point[] points3 = new Point[] {
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(2, 0),
+                new Point(1, 1),
+                new Point(2, 2),
+                new Point(1, 1),
+                new Point(0, 3),
+                new Point(1, 2),
+                new Point(6, 0),
+                new Point(1, -1)
+        };
+        assertFalse(LIC.LIC6(points3.length, points3, p));
     }
 
     @Test
