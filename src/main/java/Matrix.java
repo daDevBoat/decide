@@ -10,8 +10,8 @@ public class Matrix {
     
     */
 
-    int M, N;
-    Cond[][] matrixArray;
+    public final int M, N;
+    private final Cond[][] matrixArray;
 
     Matrix(int M, int N) {
         this.M = M;
@@ -33,11 +33,19 @@ public class Matrix {
         for (int i = 0; i < M;  i++) {
             printString += "[";
             for (int j = 0; j < N - 1; j++) {
-                printString += matrixArray[i][j].value + " ";
+                printString += String.format("%-9s", matrixArray[i][j]);
             }
-            printString += matrixArray[i][N - 1].value + "]\n";
+            printString += matrixArray[i][N - 1] + "]\n";
         }
         return printString;
+    }
+
+    public void updateElement(int m, int n, Cond c) {
+        matrixArray[m][n] = c;
+    }
+
+    public Cond getElement(int m, int n) {
+        return matrixArray[m][n];
     }
 
 }
