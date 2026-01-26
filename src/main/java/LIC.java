@@ -1,6 +1,7 @@
 public class LIC {
 
     public static boolean LIC0(int numPoints, Point[] points, Parameters p) {
+        if (p.LENGTH1 < 0) return false;
         for (int i = 0; i < numPoints - 1; i++) {
             if (Point.distance(points[i], points[i + 1]) > p.LENGTH1)
                 return true;
@@ -41,8 +42,8 @@ public class LIC {
     }
 
     public static boolean LIC6(int numPoints, Point[] points, Parameters p) {
-        if (numPoints < 3 || p.N_PTS < 3 || p.DIST < 0 || numPoints < p.N_PTS)
-            return false;
+        if (numPoints < 3 || p.N_PTS < 3 || p.DIST < 0 || numPoints < p.N_PTS ||
+            p.DIST < 0) return false;
 
         for (int i = 0; i <= numPoints - p.N_PTS; i++) {
             Point p_start = points[i];
