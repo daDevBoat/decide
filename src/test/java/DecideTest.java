@@ -156,4 +156,137 @@ public class DecideTest {
             assertEquals(FUV.getElement(i, 0), actual.getElement(i, 0));
         }
     }
+
+    @Test
+    public void testTrueCaseDecide() {
+        /* Contract: Decide.DECIDE(int numPoints, Point[] points, 
+        Parameters p, Matrix LCM, boolean[] PUV)
+        should return true if and only if FUV[i] is true for all i = 0,1,...,14 */
+
+        /*d ouble LENGTH1; / / L e n gt h i n L ICs 0 , 7 , 12
+d ouble RADIUS1 ; / / R a di u s i n L ICs 1 , 8 , 13
+d ouble EPSILON ; / / D e v i a t i o n f r om P I i n L ICs 2 , 9
+d ouble AREA1; / / Area i n L ICs 3 , 1 0 , 14
+i n t Q PTS ; / / No . o f c o n s e c u t i v e p o i n t s i n LIC 4
+i n t QUADS; / / No . o f q u a d r a nt s i n LIC 4
+d ouble DIST ; / / Di s t a n c e i n LIC 6
+i n t N PTS ; / / No . o f c o n s e c u t i v e p t s . i n LIC 6
+i n t K PTS ; / / No . o f i n t . p t s . i n L ICs 7 , 12
+i n t A PTS ; / / No . o f i n t . p t s . i n L ICs 8 , 13
+i n t B PTS ; / / No . o f i n t . p t s . i n L ICs 8 , 13
+i n t C PTS ; / / No . o f i n t . p t s . i n LIC 9
+i n t D PTS ; / / No . o f i n t . p t s . i n LIC 9
+i n t E PTS ; / / No . o f i n t . p t s . i n L ICs 1 0 , 14
+i n t F PTS ; / / No . o f i n t . p t s . i n L ICs 1 0 , 14
+i n t G PTS ; / / No . o f i n t . p t s . i n LIC 11
+d ouble LENGTH2; / / Maximum l e n g t h i n LIC 12
+d ouble RADIUS2 ; / / Maximum r a d i u s i n LIC 13
+d ouble AREA2; / / Maximum a r e a i n LIC 14
+ */
+        Parameters p = new Parameters();
+        p.LENGTH1 = 0; //Best for all LICS
+        p.RADIUS1 = 0; //Best for all LICS
+        p.EPSILON = 0; //Best for all LICS
+        p.AREA1 = 0; //Best for all LICs
+        p.Q_PTS = 1; //TEMPORARY!!!  The one in LIC4 testcase
+        p.QUADS = 1; //TEMPORARY!!!  Same for LIC4
+        p.DIST = 3.0; //Same for LIC6
+        p.N_PTS = 3; //Same for LIC6
+        p.K_PTS = 1; //same for LIC7 and LIC12
+        p.A_PTS = 1; //Same for LIC8 and LIC 13
+        p.B_PTS = 1; //Same for LIC8 and LIC 13
+        p.C_PTS = 1; //Same for LIC9
+        p.D_PTS = 1; //Same for LIC9
+        p.E_PTS = 1; //Same for LIC 10 and 14
+        p.F_PTS = 1; //Same for LIC 10 and 14
+        p.G_PTS = 1; //Same for LIC 11
+        p.LENGTH2 = 10000;
+        p.RADIUS2 = 10000;
+        p.AREA2 = 10000;
+
+        Point[] points = new Point[] {
+        //True for LIC0 witch LENGTH1:4
+           new Point(0, 0), new Point(3, 4), 
+            // True for LIC1 
+                new Point(2, 2),
+                new Point(8, 2),
+                new Point(6, 5),
+        //True for LIC2 
+                new Point(1, 1),
+                new Point(1, 1),
+                new Point(-2, -2),
+                new Point(-2, -1),
+                new Point(-3, -1),
+            //True for LIC3 
+                new Point(0.0, 0.0),
+                new Point(4.0, 0.0),
+                new Point(0.0, 3.0),
+        //True for LIC4
+        //Fill in when implemented
+
+        //True for LIC5
+        //Fill in when imple
+            // True for LIC 6
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(2, 0),
+                new Point(1, 1),
+                new Point(2, 2),
+                new Point(1, 1),
+                new Point(0, 3),
+                new Point(1, 2),
+                new Point(6, 0),
+                new Point(1, -1),
+            //True for LIC7
+                new Point(2, 2),
+                new Point(5, 5),
+                new Point(8, 2),
+            //True for LIC 8
+                new Point(0, 10),
+                new Point(0, 0),
+                new Point(-10, 0),
+                new Point(0, -1),
+                new Point(10, 0),
+            //True for LIC 9
+                new Point(0, 0), // 0 = A
+                new Point(999, 999), // 1 = C_PTS
+                new Point(1, 0), // 2 = B
+                new Point(999, 999), // 3 = D_PTS
+                new Point(1, 1), // 4 = C
+            //True for LIC 10
+                new Point(10, 0),
+                new Point(0, 0),
+                new Point(20, 0),
+                new Point(0, 0),
+                new Point(10, 10),
+            //True for LIC 11
+            new Point(1, -1),  
+            new Point(0, 0),  
+            new Point(-1, 1),
+            //True for LIC 12
+                new Point(0, 0),
+                new Point(0, 0),
+                new Point(6, 0),
+                new Point(0, 0),
+                new Point(7, 0),
+            //True for LIC 13
+                new Point(2, 2),
+                new Point(100, 100),
+                new Point(8, 2),
+                new Point(101, 101),
+                new Point(6, 5),
+                new Point(99, 99),
+                new Point(5, 11),
+            //True for LIC 14
+            //Fill in when implemented
+        };
+        //Implement valid LCM
+        Matrix LCM = new Matrix(5, 5);
+
+        //Implement valid PUV
+        boolean[] PUV = {true,false};
+
+        assertTrue(Decide.DECIDE(points.length, points, p, LCM, PUV));
+    }
+
 }
