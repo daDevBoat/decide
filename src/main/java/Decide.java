@@ -3,7 +3,7 @@ public class Decide {
     public static boolean DECIDE(int numPoints, Point[] points, Parameters p, Matrix LCM, boolean[] PUV) {
 
 
-        return false;
+        return true;
 
     }
 
