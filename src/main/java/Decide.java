@@ -2,16 +2,12 @@ public class Decide {
 
     public static boolean DECIDE(int numPoints, Point[] points, Parameters p, Matrix LCM, boolean[] PUV) {
 
-        Matrix CMV = CMV(numPoints, points, p);
-        Matrix PUM = PUM(CMV, LCM);
-        boolean FUV = FUV(PUM, PUV);
 
-        // return launch();
+        return false;
 
     }
 
     public static Matrix PUM(Matrix CMV, Matrix LCM) {
-        
         Matrix PUM = new Matrix(15, 15);
 
         for(int i = 0; i < 15; i++){
