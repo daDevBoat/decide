@@ -67,6 +67,10 @@ public class LICTests {
     }
 
     @Test
+    /*
+    * Contract: LIC0 is true iff at least two consecutive points exist, with
+    * distance strictly greater than LENGHT1 between them.
+    */
     void LIC0_true_with_greater_distance() {
         Parameters p = new Parameters();
         p.LENGTH1 = 4;
@@ -75,6 +79,10 @@ public class LICTests {
     }
 
     @Test
+    /*
+    * Contract: LIC0 is false iff no two consecutive points exists, with
+    * distance strictly greater than LENGHT1 between them.
+    */
     void LIC0_false_with_smaller_distance() {
         Parameters p = new Parameters();
         p.LENGTH1 = 20;
@@ -83,6 +91,7 @@ public class LICTests {
     }
 
     @Test
+    // Contract: LIC0 is false iff less than two points exist.
     void LIC0_false_with_too_few_points() {
         Parameters p = new Parameters();
         p.LENGTH1 = 4;
@@ -216,10 +225,16 @@ public class LICTests {
     }
 
     @Test
-    public void testLIC6() {
+    public void LIC6_false_with_points_too_close() {
+        /* 
+         * Contract: LIC6 is false iff there exists no set of N PTS consecutive data points such that at 
+         * least one of the points lies a distance greater than DIST from the line joining the first
+         * and last of these N PTS points.
+         * All points in this test are within a small area, max distance: 2
+         */
         Parameters p = new Parameters();
         p.N_PTS = 3;
-        p.DIST = 3;
+        p.DIST = 30;
         Point[] points1 = new Point[] {
                 new Point(0, 0),
                 new Point(1, 0),
@@ -232,6 +247,19 @@ public class LICTests {
                 new Point(6, 0)
         };
         assertFalse(LIC.LIC6(points1.length, points1, p));
+    }
+
+    @Test
+    public void LIC6_true() {
+        Parameters p = new Parameters();
+        p.N_PTS = 3;
+        p.DIST = 3;
+        /* 
+         * Contract: LIC6 is true iff there exists at least one set of N PTS consecutive data points such that at 
+         * least one of the points lies a distance greater than DIST from the line joining the first
+         * and last of these N PTS points.
+         * Line fron (1,2) - (1,-1) is parallel to the y axis - point (6,0) is 5 away
+         */
 
         Point[] points2 = new Point[] {
                 new Point(0, 0),
@@ -246,8 +274,40 @@ public class LICTests {
                 new Point(1, -1)
         };
         assertTrue(LIC.LIC6(points2.length, points2, p));
-        assertFalse(LIC.LIC6(2, points2, p));
+    }
+
+    @Test
+    public void LIC6_false_with_too_few_points() {
+        // Contract: LIC6 is false iff there exist less than 3 points
+        Parameters p = new Parameters();
+        p.N_PTS = 3;
+        p.DIST = 30;
+        Point[] points3 = new Point[] {
+                new Point(0, 0),
+                new Point(1, 0)
+        };
+        assertFalse(LIC.LIC6(2, points3, p));
+
+    }
+
+    @Test
+    public void LIC6_false_with_too_small_N_PTS() {
+        // Contract: LIC6 is false iff N_PTS < 3
+        Parameters p = new Parameters();
         p.N_PTS = 2;
+        p.DIST = 30;
+        Point[] points2 = new Point[] {
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(2, 0),
+                new Point(1, 1),
+                new Point(2, 2),
+                new Point(1, 1),
+                new Point(0, 3),
+                new Point(1, 2),
+                new Point(6, 0),
+                new Point(1, -1)
+        };
         assertFalse(LIC.LIC6(points2.length, points2, p));
     }
 
@@ -501,9 +561,9 @@ public class LICTests {
         assertFalse(LIC.LIC9(numPoints, points, p));
     } 
 
-
     @Test
     public void LIC10_false_when_too_few_points() {
+        // Contract: LIC10 is false iff less than 5 points are being passed
         Point [] points = new Point[] {
                 new Point(1, 0),
                 new Point(0, 0),
@@ -518,6 +578,7 @@ public class LICTests {
 
     @Test
     public void LIC10_false_when_EPTS_plus_FTPS_too_large() {
+        // Contract: LIC10 is false iff E_PTS + F_PTS <= numpoints - 3
         Point [] points = new Point[] {
                 new Point(1, 0),
                 new Point(0, 0),
@@ -534,6 +595,11 @@ public class LICTests {
 
     @Test
     public void LIC10_false_with_smaller_area() {
+        /*
+        * Contract: LIC10 is false iff there exists no set of three data points 
+        * separated by exactly E PTS and F PTS consecutive intervening points, respectively,
+        * that are the vertices of a triangle with area greater than AREA1.
+        */
         Point [] points = new Point[] {
                 new Point(1, 0),
                 new Point(0, 1),
@@ -551,6 +617,12 @@ public class LICTests {
 
     @Test
     public void LIC10_true() {
+        /*
+        * Contract: LIC10 is true iff there exists at least one set of three data points 
+        * separated by exactly E PTS and F PTS consecutive intervening points, respectively,
+        * that are the vertices of a triangle with area greater than AREA1.
+        * The triangle is (10,0), (20,0), (10, 10) with area > 10
+        */
         Point [] points = new Point[] {
                 new Point(10, 0),
                 new Point(0, 0),
