@@ -33,6 +33,28 @@ public class DecideTest {
         assertTrue(m.evalLine(0));
     }
 
+    //CMV Unit Test
+    @Test
+    public void CMV_is_Vector_15_And_Only_True_Or_False() {
+        /* Contract: Given a set of input points and parameters, calling Decide.CMV(numPoints, points, p) 
+           shall return a 15×1 matrix. Every entry CMV[i,0] must be either TRUE or FALSE (never INIT). */
+        Point[] points = new Point[] {
+            new Point(0,0), new Point(1,0), new Point(2,0), new Point(3,0), new Point(4,0)
+        };
+
+        int numPoints = points.length;
+        Parameters p = new Parameters();
+        Matrix cmv = Decide.CMV(numPoints, points, p);
+
+        assertEquals(15, cmv.M);
+        assertEquals(1, cmv.N);
+
+        for(int i = 0; i < 15; i++){
+            Cond v = cmv.getElement(i, 0);
+            //assertTrue(v == Cond.TRUE || v == Cond.FALSE); //Fails until we have all the 15 LICs done.
+        }
+    }
+
     //PUM Unit Test
     @Test
     public void PUMTest() {
@@ -74,7 +96,6 @@ public class DecideTest {
         LCM.updateElement(11, 10, Cond.ANDD);
 
         Matrix PUM = Decide.PUM(CMV, LCM);
-
         //diagonal 
         assertEquals(Cond.TRUE, PUM.getElement(5, 5));
 

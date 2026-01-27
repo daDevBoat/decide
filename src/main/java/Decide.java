@@ -7,6 +7,30 @@ public class Decide {
 
     }
 
+    public static Matrix CMV(int numPoints, Point[] points, Parameters p) {
+
+        Matrix CMV = new Matrix(15, 1);
+
+        CMV.updateElement(0, 0, LIC.LIC0(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        CMV.updateElement(1, 0, LIC.LIC1(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        CMV.updateElement(2, 0, LIC.LIC2(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        CMV.updateElement(3, 0, LIC.LIC3(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        //CMV.updateElement(4, 0, LIC.LIC4(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        //CMV.updateElement(5, 0, LIC.LIC5(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        CMV.updateElement(6, 0, LIC.LIC6(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        CMV.updateElement(7, 0, LIC.LIC7(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        CMV.updateElement(8, 0, LIC.LIC8(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        CMV.updateElement(9, 0, LIC.LIC9(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        CMV.updateElement(10, 0, LIC.LIC10(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        CMV.updateElement(11, 0, LIC.LIC11(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        CMV.updateElement(12, 0, LIC.LIC12(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        CMV.updateElement(13, 0, LIC.LIC13(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+        //CMV.updateElement(14, 0, LIC.LIC14(numPoints, points, p) ? Cond.TRUE : Cond.FALSE);
+
+        return CMV;
+        
+    }
+
     public static Matrix PUM(Matrix CMV, Matrix LCM) {
         Matrix PUM = new Matrix(15, 15);
 
