@@ -1120,4 +1120,26 @@ public class LICTests {
         assertFalse(LIC.LIC14(points.length, points, p));
     }
 
+    @Test
+    void LIC14_false_on_bad_input() {
+        /*
+         * Contract: LIC14 is false when NUMPOINTS < 5
+         * Use 4 points to test.
+         */
+        Parameters p = new Parameters();
+        p.E_PTS = 1;
+        p.F_PTS = 1;
+        p.AREA1 = 0.9;
+        p.AREA2 = -1;
+
+        Point[] points = new Point[]{
+            new Point(0,0),
+            new Point(2,0),
+            new Point(1,2),
+            new Point(2.5,1),
+        };
+
+        assertFalse(LIC.LIC14(points.length, points, p));
+    }
+
 }
