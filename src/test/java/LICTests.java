@@ -234,6 +234,40 @@ public class LICTests {
     }
 
     @Test
+    void LIC5_true_two_consecutive_points_x_difference_less_than_zero() {
+        /*
+         * Contract: LIC5 is true iff there exists at least one pair of consecutive points (i, i+1)
+         * such that the x coordinate of i is larger than that of i+1: X[i+1]-X[i] < 0.
+         * The minimum amounts of points (2) is being tested, where the second point has a lower x coordinate
+         * than the first.
+         */
+        Parameters p = new Parameters();
+        Point[] points = new Point[] {
+                new Point(2, 0),
+                new Point(1, 1),
+        };
+
+        assertTrue(LIC.LIC5(points.length, points, p));
+    }
+
+    @Test
+    void LIC5_false_two_consecutive_points_x_difference_larger_than_zero() {
+        /*
+         * Contract: LIC5 is false iff there is no pair of consecutive points (i, i+1)
+         * such that the x coordinate of i is larger than that of i+1: X[i+1]-X[i] < 0.
+         * The minimum amount of points (2) is being tested, where the second point has a higher x coordinate
+         * than the first.
+         */
+        Parameters p = new Parameters();
+        Point[] points = new Point[] {
+                new Point(1, 0),
+                new Point(2, 1),
+        };
+
+        assertFalse(LIC.LIC5(points.length, points, p));
+    }
+
+    @Test
     public void LIC6_false_with_points_too_close() {
         /* 
          * Contract: LIC6 is false iff there exists no set of N PTS consecutive data points such that at 
