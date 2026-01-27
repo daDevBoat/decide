@@ -51,7 +51,7 @@ public class DecideTest {
 
         for(int i = 0; i < 15; i++){
             Cond v = cmv.getElement(i, 0);
-            //assertTrue(v == Cond.TRUE || v == Cond.FALSE); //Fails until we have all the 15 LICs done.
+            assertTrue(v == Cond.TRUE || v == Cond.FALSE); 
         }
     }
 
