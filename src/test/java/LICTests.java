@@ -112,6 +112,11 @@ public class LICTests {
     }
 
     @Test
+    /*
+    * Contract: LIC1 is true iff there exists 3 consecutive points that
+    * cannot all be contained within a circle of RADIUS1. If not such 3 
+    * consecutive points exist then LIC1 is false
+    */
     void testLIC1() {
         Point[] points = new Point[] {
             new Point(2, 2),
@@ -406,6 +411,11 @@ public class LICTests {
 
     @Test
     public void testLIC7() {
+        /*
+        * Contract: LIC7 is true iff there exists at least on set of 2 consecutive points seperated by K_PTS 
+        * (meaning number of points in between) that are a greater distance apart than LENGTH1 
+        * If not such 2 consecutive points exist then LIC7 is false
+        */
         Point[] points1 = new Point[] {
                 new Point(2, 2),
                 new Point(5, 5),
@@ -906,6 +916,12 @@ public class LICTests {
 
     @Test
     public void testLIC13() {
+        /*
+        * Contract: LIC13 is true iff there exists at least one set of 3 consecutive points seperated by first A_PTS 
+        * (meaning number of points in between) and then B_PTS that are not contained by a circle with RADIUS1, and also 
+        * a similar set of 3 points with the same seperation that is contained/or on the border of a circle with RADIUS2. 
+        * If not these two sets of 3 consecutive points exist then LIC13 is false
+        */
         Point[] points = new Point[] {
                 new Point(2, 2),
                 new Point(100, 100),
