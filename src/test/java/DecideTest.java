@@ -37,7 +37,7 @@ public class DecideTest {
     @Test
     public void CMV_is_Vector_15_And_Only_True_Or_False() {
         /* Contract: Given a set of input points and parameters, calling Decide.CMV(numPoints, points, p) 
-           shall return a 15×1 matrix. Every entry CMV[i,0] must be either TRUE or FALSE (never INIT). */
+           shall return a 15×1 matrix. Every entry CMV[i,0] must be either TRUE or FALSE. */
         Point[] points = new Point[] {
             new Point(0,0), new Point(1,0), new Point(2,0), new Point(3,0), new Point(4,0)
         };
@@ -57,7 +57,14 @@ public class DecideTest {
 
     //PUM Unit Test
     @Test
-    public void PUMTest() {
+    public void PUM_builds_expected_matrix_entries() {
+         /* Contract: Given a CMV vector (15x1) with TRUE/FALSE values and a 15x15 LCM initialized to NOTUSED, ANDD, or ORR,
+           shall produce a 15x15 matrix such that:
+           - All diagonal entries PUM[i, i] are TRUE.
+           - Any entry whose connector is NOTUSED results in TRUE.
+           - For entries with connectors ANDD, PUM[i, j] = TRUE iff both corresponding CMV values are TRUE, otherwise FALSE.
+           - For entries with connectors ORR, PUM[i, j] = TRUE iff at least one corresponding CMV value is TRUE, otherwise FALSE.
+         */
 
         Matrix CMV = new Matrix(15, 1);
         CMV.updateElement(0, 0, Cond.TRUE);
@@ -90,10 +97,8 @@ public class DecideTest {
         LCM.updateElement(1, 2, Cond.ORR);
         LCM.updateElement(2, 0, Cond.ANDD);
         LCM.updateElement(2, 1, Cond.ORR);
-        LCM.updateElement(5, 6, Cond.ORR);
         LCM.updateElement(6, 5, Cond.ANDD);
         LCM.updateElement(10, 11, Cond.ORR);
-        LCM.updateElement(11, 10, Cond.ANDD);
 
         Matrix PUM = Decide.PUM(CMV, LCM);
         //diagonal 
