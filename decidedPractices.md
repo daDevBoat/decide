@@ -1,9 +1,27 @@
-# Decided practice conventions in the group
+# Decided work conventions in the group:
 
-- We use **java 25** as our java version
-- We make a new branch for each issue - it should be name `issue/x`, where x is the issue number
-- All commits are linked to an issue describing the feature / commit. Use `#x` to reference or `close #x` to reference and close the issue in github through your commit message. **Include the reference in the end** of the commit message.
-- Every commit is an *atomic bug fix or feature*, with a clear commit message. We use the prefix convention where the commit messages starts with for example **"feat", "fix", "doc", "refactor"**). A link describing the used prefix convention is given by: https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13
-- The commit contents reflect the commit message, **every bug fix or feature commit contains a test** (i.e., adds at least one test or modifies at least one existing test).
-- The commits are well balanced among group members
-- We use JUnit for testing
+## Versions:
+- We use **java 25**
+- We use **Junit 5.10.1** as our test framework
+
+## Way of working:
+0) Create an issue if a task is identified
+    - Every issue should have a useful description
+
+1) Make a new branch for every issue 
+    - The branch should be name `issue/x`, where x is the issue number
+
+2) Commit all work regarding issue `x` to branch `issue/x`
+    - **Every** bug fix or feature commit contains a test
+    - **Every** commit reflects the commit message
+    - **Every** commit message should link to the issue by having `#x` in the end.
+    - **Every** commit message should start with a prefix like **"feat", "fix", "doc", "refactor"**, find more [here](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13).
+
+3) When the work is done, **rebase** the issue branch on main 
+    - **squash** all commits into one
+    - Have a commit message summarizing all the commits, include the *close trigger* for the issue `closes #x`
+
+4) Push the branch to GitHub
+
+5) If all tests pass on GitHub create a pull request
+
