@@ -1,3 +1,5 @@
+import java.util.stream.IntStream;
+
 public class LIC {
 
     public static boolean LIC0(int numPoints, Point[] points, Parameters p) {
@@ -64,6 +66,28 @@ public class LIC {
         if(numPoints == 2) return false;
         for (int i = 0; i < numPoints - 2; i++){
             if(Point.triangleArea(points[i], points[i+1], points[i+2]) > p.AREA1){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean LIC4(int numPoints, Point[] points, Parameters p) {
+        if (p.Q_PTS > numPoints || p.Q_PTS < 2) {
+            return false;
+        }
+        if (p.QUADS < 1 || p.QUADS > 3) {
+            return false;
+        }
+
+        for (int i = 0; i <= numPoints - p.Q_PTS; i++) {
+            // i in range [0,numPoints-p.Q_PTS]
+            int[] quadsVisited = new int[]{0, 0, 0, 0};
+            for (int j = i; j < i + p.Q_PTS; j++) {
+                // j in range [i, i+p.Q_PTS), so we evaluate precisely Q_PTS
+                quadsVisited[Point.pointQuadrant(points[j])-1] = 1;
+            }
+            if (IntStream.of(quadsVisited).sum() > p.QUADS) {
                 return true;
             }
         }

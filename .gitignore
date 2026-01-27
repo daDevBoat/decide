@@ -25,4 +25,8 @@ replay_pid*
 
 # ===== Gradle =====
 .gradle/
+./gradlew
 build/
+
+# VS Code
+.vscode/settings.json
