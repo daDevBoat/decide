@@ -33,7 +33,9 @@ We agreed to follow a continuous integration workstyle, where for every feature 
 
 ### [Elias Lastname] — GitHub: [@username]
 
-### [Arnau Name] — GitHub: [@username]
+### [Arnau Pelechano García] — GitHub: [@arpega75]
+
+Arnau was responsible for the implementation of **LICs 3, 9 and 12**, including the implementation of their corresponding Unit Tests. He created the **Parameters class**. In addition, he implemented the **CMV function and the PUM function**, together with their respective Unit Tests. For the development of the LICs, he implemented in the Point class the **triangleArea and directedAngle methods**, as well as their respective Unit Tests.
 
 ### [Jannis Name] — GitHub: [@username] 
 
