@@ -126,6 +126,15 @@ public class LICTests {
 
     @Test
     public void testLIC2() {
+        /* LIC2 returns true if and only if
+        there exists at least one set of three consecutive data points which form an angle such that:
+        angle < (PI−EPSILON)
+        or
+        angle > (PI+EPSILON)
+        The second of the three consecutive points is always the vertex of the angle. If either the first
+        point or the last point (or both) coincides with the vertex, the angle is undefined and the LIC
+        is not satisfied by those three points.
+        (0 ≤ EPSILON < PI) */
         Parameters p = new Parameters();
         p.EPSILON = 0.01;
 
@@ -154,14 +163,27 @@ public class LICTests {
                 new Point(-3, -1)
         };
 
+        //Tests that false is returned when NUMPOINTS < 3
         assertFalse(LIC.LIC2(points1.length, points1, p));
+
+        //Tests that false is returned if any point coincides with the vertex
         assertFalse(LIC.LIC2(points2.length, points2, p));
+
+        //Tests that true is returned for an input which fulfills the contract 
         p.EPSILON = (PI / 2) - 0.01;
         assertTrue(LIC.LIC2(points3.length, points3, p));
+
+        //Tests that false is returned when EPSILON < 0
         p.EPSILON = -0.01;
         assertFalse(LIC.LIC2(points4.length, points4, p));
+
+        //Tests that false is returned when EPISILON > PI
         p.EPSILON = PI + 0.01;
         assertFalse(LIC.LIC2(points4.length, points4, p));
+
+        //Tests that false is returned when there does not exist at least one set of three 
+        //consecutive data points which form an angle such that: angle < (PI−EPSILON)
+        //or angle > (PI+EPSILON)
         p.EPSILON = PI / 2 + 0.01;
         assertFalse(LIC.LIC2(points4.length, points3, p));
     }
