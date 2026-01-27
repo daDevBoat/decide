@@ -110,13 +110,18 @@ public class LICTests {
 
     @Test
     void testLIC1() {
-        Parameters p = new Parameters();
-        p.RADIUS1 = 3;
         Point[] points = new Point[] {
-                new Point(2, 2),
-                new Point(8, 2),
-                new Point(6, 5)
+            new Point(2, 2),
+            new Point(8, 2),
+            new Point(6, 5)
         };
+        Parameters p = new Parameters();
+
+        p.RADIUS1 = -1;
+        assertFalse(LIC.LIC1(points.length, points, p));
+        p.RADIUS1 = 3;
+
+        assertFalse(LIC.LIC1(0, new Point[]{}, p));
 
         assertTrue(LIC.LIC1(points.length, points, p));
         points[0].x = 2.1;
@@ -413,9 +418,18 @@ public class LICTests {
         };
 
         Parameters p = new Parameters();
+        p.LENGTH1 = 1;
+        p.K_PTS = 0;
+        assertFalse(LIC.LIC7(points1.length, points1, p));
         p.K_PTS = 1;
-        p.LENGTH1 = 5.9;
 
+        assertFalse(LIC.LIC7(0, new Point[]{}, p));
+
+        p.LENGTH1 = -1;
+        assertFalse(LIC.LIC7(points1.length, points1, p));
+
+        
+        p.LENGTH1 = 5.9;
         assertTrue(LIC.LIC7(points1.length, points1, p));
         p.LENGTH1 = 6;
         assertFalse(LIC.LIC7(points1.length, points1, p));
@@ -907,14 +921,36 @@ public class LICTests {
         System.out.println(radius3);
 
         Parameters p = new Parameters();
-        p.RADIUS1 = 3;
+        p.RADIUS1 = -1;
         p.A_PTS = 1;
         p.B_PTS = 1;
         p.RADIUS2 = 1.5;
 
+        assertFalse(LIC.LIC13(points.length, points, p));
+        p.RADIUS1 = 3;
+
+        p.A_PTS = 0;
+        assertFalse(LIC.LIC13(points.length, points, p));
+        p.A_PTS = 1;
+
+        p.B_PTS = 0;
+        assertFalse(LIC.LIC13(points.length, points, p));
+        p.B_PTS = 1;
+
+        p.RADIUS2 = -1;
+        assertFalse(LIC.LIC13(points.length, points, p));
+        p.RADIUS2 = 1.5;
+        
+        assertFalse(LIC.LIC13(0, new Point[]{}, p));
+        
+
+        p.RADIUS1 = 3;
+        p.A_PTS = 1;
+        p.B_PTS = 1;
+        p.RADIUS2 = 1.5;
         assertTrue(LIC.LIC13(points.length, points, p));
         p.RADIUS2 = 1.4;
         assertFalse(LIC.LIC13(points.length, points, p));
     }
-
+    
 }
