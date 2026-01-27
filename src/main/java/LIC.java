@@ -70,6 +70,15 @@ public class LIC {
         return false;
     }
 
+    public static boolean LIC5(int numPoints, Point[] points, Parameters p) {
+        for (int i = 0; i < numPoints - 1; i++) {
+            if(points[i+1].x - points[i].x < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean LIC7(int numPoints, Point[] points, Parameters p) {
         if (numPoints < 3 || p.K_PTS < 1 || p.K_PTS > numPoints - 2 || p.LENGTH1 < 0) return false;
 
