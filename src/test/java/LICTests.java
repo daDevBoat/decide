@@ -1068,4 +1068,56 @@ public class LICTests {
         assertFalse(LIC.LIC13(points.length, points, p));
     }
     
+    @Test
+    void LIC14_true_triangle_exists_gt_AREA1_and_triangle_exists_lt_AREA2() {
+        /*
+         * Contract: LIC14 is true iff there exists at least one triplet of points (i, j=i+E_PTS+1, k=i+E_PTS+1+F_PTS+1) that forms a 
+         * triangle with area > AREA1 AND there exists at least one other or same triplet of points with area < AREA2.
+         * Set E_PTS=1, F_PTS=1, NUMPOINTS=6, AREA1=0.9, AREA2=0.5
+         * Make the first triplet i=0, j=2, k=4 with area 1>AREA1 but > AREA2, the second triplet
+         * i=1, j=3, k=5 with area 0.25 < AREA1 and < AREA2.
+         */
+        Parameters p = new Parameters();
+        p.E_PTS = 1;
+        p.F_PTS = 1;
+        p.AREA1 = 0.9;
+        p.AREA2 = 0.5;
+
+        Point[] points = new Point[]{
+            new Point(0,0),
+            new Point(2,0),
+            new Point(1,2),
+            new Point(2.5,1),
+            new Point(1,0),
+            new Point(2.5,0)
+        };
+
+        assertTrue(LIC.LIC14(points.length, points, p));
+    }
+
+        @Test
+    void LIC14_false_one_triplet() {
+        /*
+         * Contract: LIC14 is false when there exists no triplet of points (i, j=i+E_PTS+1, k=i+E_PTS+1+F_PTS+1) that forms a 
+         * triangle with area > AREA1 or there does not exist at least one other or same triplet of points with area < AREA2.
+         * Set E_PTS=1, F_PTS=1, NUMPOINTS=5, AREA1=1.1, AREA2=0.9
+         * Make the first triplet (and only triplet) i=0, j=2, k=4 with area 1, which does not fullfil either of the AREA1 and AREA 2 conditions.
+         */
+        Parameters p = new Parameters();
+        p.E_PTS = 1;
+        p.F_PTS = 1;
+        p.AREA1 = 1.1;
+        p.AREA2 = 0.9;
+
+        Point[] points = new Point[]{
+            new Point(0,0),
+            new Point(2,0),
+            new Point(1,2),
+            new Point(2.5,1),
+            new Point(1,0)
+        };
+
+        assertFalse(LIC.LIC14(points.length, points, p));
+    }
+
 }

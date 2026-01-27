@@ -215,4 +215,25 @@ public class LIC {
         }
         return false;
     }
+
+    public static boolean LIC14(int numPoints, Point[] points, Parameters p) {
+        if (numPoints < 5 || p.AREA1 < 0 || p.AREA2 < 0 || p.E_PTS < 1 || p.F_PTS < 1) {
+            return false;
+        }
+
+        boolean moreThanArea1 = false;
+        boolean lessThanArea2 = false;
+
+        for (int i = 0; i < numPoints - p.E_PTS - p.F_PTS - 2; i++) {
+            // i in range [0, numPoints - p.E_PTS - p.F_PTS - 2 - 1]
+            double triangleArea = Point.triangleArea(points[i], points[i+p.E_PTS+1], points[i+p.E_PTS+1+p.F_PTS+1]);
+            if (triangleArea > p.AREA1){
+                moreThanArea1 = true;
+            }
+            if (triangleArea < p.AREA2){
+                lessThanArea2 = true;
+            }
+        }
+        return moreThanArea1 && lessThanArea2;
+    }
 }
