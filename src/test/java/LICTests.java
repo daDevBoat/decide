@@ -12,6 +12,8 @@ public class LICTests {
 
     @Test
     public void testAngleFunction() {
+        /* Point.angle(Point p1, Point p2, Point p3) returns the 
+        angle of the 3 points when using the dot product method */
         Point p1 = new Point(2, 0);
         Point p2 = new Point(1, 0);
         Point p3 = new Point(1, 3);
