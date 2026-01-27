@@ -71,8 +71,8 @@ public class LIC {
     }
 
     public static boolean LIC7(int numPoints, Point[] points, Parameters p) {
-        if (numPoints < 3 || p.K_PTS < 1 || p.K_PTS > numPoints - 2)
-            return false;
+        if (numPoints < 3 || p.K_PTS < 1 || p.K_PTS > numPoints - 2 || p.LENGTH1 < 0) return false;
+
         for (int i = 0; i < numPoints - p.K_PTS - 1; i++) {
             if (Point.distance(points[i], points[i + p.K_PTS + 1]) > p.LENGTH1)
                 return true;
@@ -169,7 +169,8 @@ public class LIC {
 
 
     public static boolean LIC13(int numPoints, Point[] points, Parameters p) {
-        if (numPoints < 5 || p.RADIUS2 < 0) return false;
+        if (numPoints < 5 || p.RADIUS2 < 0 || p.RADIUS1 < 0 || p.A_PTS < 1 || p.B_PTS < 1) return false;
+        
         boolean not_contained_flag = false, contained_flag = false;
         for (int i = 0; i < numPoints - p.A_PTS - p.B_PTS - 2; i++) {
             double radius = Point.circleRadius(points[i], points[i + p.A_PTS + 1], points[i + p.A_PTS + p.B_PTS + 2]);
