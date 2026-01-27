@@ -70,6 +70,42 @@ public class LICTests {
     }
 
     @Test
+    public void testPointQuadrantEvaluation() {
+        Point[] quadOne = new Point[]{
+            new Point(0,0),
+            new Point(0,1),
+            new Point(1, 0),
+
+        };
+        Point[] quadTwo = new Point[]{
+            new Point(-1,0),
+            new Point(-2,0),
+            new Point(-2,2)
+        };
+        Point[] quadThree = new Point[]{
+            new Point(0,-1),
+            new Point(0,-3),
+            new Point(-2,-3)
+        };
+        Point[] quadFour = new Point[]{
+            new Point(1, -1),
+            new Point(2, -3)
+        };
+        for (Point p : quadOne) {
+            assertTrue(Point.pointQuadrant(p) == 1);
+        }
+        for (Point p : quadTwo) {
+            assertTrue(Point.pointQuadrant(p) == 2);
+        }
+        for (Point p : quadThree) {
+            assertTrue(Point.pointQuadrant(p) == 3);
+        }
+        for (Point p : quadFour) {
+            assertTrue(Point.pointQuadrant(p) == 4);
+        }
+    }
+
+    @Test
     /*
     * Contract: LIC0 is true iff at least two consecutive points exist, with
     * distance strictly greater than LENGHT1 between them.
@@ -266,6 +302,66 @@ public class LICTests {
         p.AREA1 = 0.0;
 
         assertFalse(LIC.LIC3(numPoints, points, p));
+    }
+
+    @Test
+    void LIC4_true_five_consecutive_points_three_quadrants() {
+        /* 
+         * Contract: LIC4 is true iff there is at least Q_PTS number of consecutive points that are
+        contained in more than QUADS quadrants.
+        Q_PTS=5, QUADS=2, with an array of five points that are contained in three quadrants.
+         */
+        Parameters p = new Parameters();
+        p.Q_PTS = 5;
+        p.QUADS = 2;
+        
+        Point[] points = new Point[] {
+                new Point(0, 0), // Q1
+                new Point(1, 0), // Q1
+                new Point(-1, 0), // Q2
+                new Point(0, -2), // Q3
+                new Point(4, 3), // Q1
+        };
+        assertTrue(LIC.LIC4(points.length, points, p));
+    }
+
+    @Test
+    void LIC4_false_on_bad_input() {
+        /* 
+         * Contract: LIC4 has constraints: 2 <= Q_PTS <= NUMPOINTS, 1 <= QUADS <= 3. 
+        Set Q_PTS = 5, QUADS = 4, with 4 points.
+         */
+        Parameters p = new Parameters();
+        p.Q_PTS = 5;
+        p.QUADS = 4;
+        
+        Point[] points = new Point[] {
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(-1, 0),
+                new Point(0, -2),
+        };
+        assertFalse(LIC.LIC4(points.length, points, p));
+    }
+
+    @Test
+    void LIC4_false_five_consecutive_points_too_few_quadrants() {
+        /* 
+         * Contract: LIC4 is false when the are not Q_PTS number of consecutive points that are contained in more than QUADS quadrants.
+        Set Q_PTS=5, QUADS=2, with an array of five points that are contained in two quadrants. 
+         */
+        Parameters p = new Parameters();
+        p.Q_PTS = 5;
+        p.QUADS = 2;
+        
+        Point[] points = new Point[] {
+                new Point(0, 0), // Q1
+                new Point(1, 0), // Q1
+                new Point(-1, 0), // Q2
+                new Point(-2, 0), // Q2
+                new Point(4, 3), // Q1
+        };
+        assertFalse(LIC.LIC4(points.length, points, p));
     }
 
     @Test

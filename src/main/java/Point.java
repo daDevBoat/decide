@@ -73,4 +73,24 @@ public class Point {
         double c = p_end.x * p_start.y - p_start.x * p_end.y;
         return Math.abs(a * p_mid.x + b * p_mid.y + c) / Math.sqrt(a * a + b * b);
     }
+
+    public static int pointQuadrant(Point p) {
+        if (p.y >= 0) {
+            // Quadrant I or II
+            if (p.x >= 0) {
+                // Quadrant I takes presedence when x == 0
+                return 1;
+            } else {
+                return 2;
+            }
+        } else {
+            // Quadrant III or IV
+            if (p.x <= 0) {
+                // Quadrant III takes presedence when x = 0
+                return 3;
+            } else {
+                return 4;
+            }
+        }
+    }
 }
