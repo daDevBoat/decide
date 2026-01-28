@@ -1,6 +1,8 @@
 public class Decide {
 
     public static boolean DECIDE(int numPoints, Point[] points, Parameters p, Matrix LCM, Matrix PUV) {
+        /* Guard clauses */
+        if (numPoints < 2) return false;
 
 
         return true;
