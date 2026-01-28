@@ -100,7 +100,9 @@ public class DecideTest {
         LCM.updateElement(2, 0, Cond.ANDD);
         LCM.updateElement(2, 1, Cond.ORR);
         LCM.updateElement(6, 5, Cond.ANDD);
+        LCM.updateElement(5, 6, Cond.ANDD);
         LCM.updateElement(10, 11, Cond.ORR);
+        LCM.updateElement(11, 10, Cond.ORR);
 
         Matrix PUM = Decide.PUM(CMV, LCM);
         //diagonal 
@@ -120,6 +122,13 @@ public class DecideTest {
 
         //ORR -> False
         assertEquals(Cond.FALSE, PUM.getElement(10, 11));
+
+        //Symmetric check
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                assertEquals(PUM.getElement(i, j), PUM.getElement(j, i));
+            }
+        }
     }
 
     @Test
