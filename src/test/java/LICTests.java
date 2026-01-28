@@ -657,6 +657,11 @@ public class LICTests {
         p.RADIUS1 = 1;
         assertFalse(LIC.LIC8(points3.length, points3, p));
 
+        // Tests that false is returned if RADIUS1 < 0:
+        p.RADIUS1 = -1; 
+        assertFalse(LIC.LIC8(points2.length, points2, p));
+
+        p.RADIUS1 = 1;
         // Tests that true is returned for a valid input
         assertTrue(LIC.LIC8(points2.length, points2, p));
     }
