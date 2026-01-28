@@ -114,7 +114,7 @@ public class LIC {
     }
 
     public static boolean LIC8(int numPoints, Point[] points, Parameters p) {
-        if (p.A_PTS < 1 || p.B_PTS < 1 || numPoints < 5 || p.A_PTS+p.B_PTS > (numPoints-3)){
+        if (p.A_PTS < 1 || p.B_PTS < 1 || numPoints < 5 || p.A_PTS+p.B_PTS > (numPoints-3) || 0>p.RADIUS1){
             return false;
         }
         for (int i = 0; i + p.A_PTS+p.B_PTS < numPoints-2; i++){
