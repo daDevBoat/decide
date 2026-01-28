@@ -342,4 +342,141 @@ d ouble AREA2; / / Maximum a r e a i n LIC 14
         assertTrue(Decide.DECIDE(points.length, points, p, LCM, PUV));
     }
 
+
+    public void testFalseCaseDecide() {
+        /* Contract: Decide.DECIDE(int numPoints, Point[] points, 
+        Parameters p, Matrix LCM, boolean[] PUV)
+        should return true if and only if FUV[i] is true for all i = 0,1,...,14 */
+
+        Parameters p = new Parameters();
+        p.LENGTH1 = 0; //Best for all LICS
+        p.RADIUS1 = 100000000; //Worst for LIC 1,8,13
+        p.EPSILON = 0; //Best for all LICS
+        p.AREA1 = 0; //Best for all LICs
+        p.Q_PTS = 5; // The one in LIC4 testcase
+        p.QUADS = 2; // Same for LIC4
+        p.DIST = 3.0; //Same for LIC6
+        p.N_PTS = 3; //Same for LIC6
+        p.K_PTS = 1; //same for LIC7 and LIC12
+        p.A_PTS = 1; //Same for LIC8 and LIC 13
+        p.B_PTS = 1; //Same for LIC8 and LIC 13
+        p.C_PTS = 1; //Same for LIC9
+        p.D_PTS = 1; //Same for LIC9
+        p.E_PTS = 1; //Same for LIC 10 and 14
+        p.F_PTS = 1; //Same for LIC 10 and 14
+        p.G_PTS = 1; //Same for LIC 11
+        p.LENGTH2 = 10000;
+        p.RADIUS2 = 10000;
+        p.AREA2 = 10000;
+
+        Point[] points = new Point[] {
+            //True for LIC0 with LENGTH1:4
+            new Point(0, 0), new Point(3, 4), 
+            // False for LIC1 
+            new Point(2, 2),
+            new Point(8, 2),
+            new Point(6, 5),
+            //True for LIC2 
+            new Point(1, 1),
+            new Point(1, 1),
+            new Point(-2, -2),
+            new Point(-2, -1),
+            new Point(-3, -1),
+            //True for LIC3 
+            new Point(0.0, 0.0),
+            new Point(4.0, 0.0),
+            new Point(0.0, 3.0),
+            //True for LIC4
+            new Point(0, 0),
+            new Point(1, 0),
+            new Point(-1, 0),
+            new Point(0, -2),
+            new Point(4, 3),
+            //True for LIC5
+            new Point(2, 0),
+            new Point(1, 1),
+            // True for LIC 6
+            new Point(0, 0),
+            new Point(1, 0),
+            new Point(2, 0),
+            new Point(1, 1),
+            new Point(2, 2),
+            new Point(1, 1),
+            new Point(0, 3),
+            new Point(1, 2),
+            new Point(6, 0),
+            new Point(1, -1),
+            //True for LIC7
+            new Point(2, 2),
+            new Point(5, 5),
+            new Point(8, 2),
+            //False for LIC 8
+            new Point(0, 10),
+            new Point(0, 0),
+            new Point(-10, 0),
+            new Point(0, -1),
+            new Point(10, 0),
+            //True for LIC 9
+            new Point(0, 0), 
+            new Point(999, 999), 
+            new Point(1, 0), 
+            new Point(999, 999), 
+            new Point(1, 1), 
+            //True for LIC 10
+            new Point(10, 0),
+            new Point(0, 0),
+            new Point(20, 0),
+            new Point(0, 0),
+            new Point(10, 10),
+            //True for LIC 11
+            new Point(1, -1),  
+            new Point(0, 0),  
+            new Point(-1, 1),
+            //True for LIC 12
+            new Point(0, 0),
+            new Point(0, 0),
+            new Point(6, 0),
+            new Point(0, 0),
+            new Point(7, 0),
+            //False for LIC 13
+            new Point(2, 2),
+            new Point(100, 100),
+            new Point(8, 2),
+            new Point(101, 101),
+            new Point(6, 5),
+            new Point(99, 99),
+            new Point(5, 11),
+            //True for LIC 14
+            new Point(0,0),
+            new Point(2,0),
+            new Point(1,2),
+            new Point(2.5,1),
+            new Point(1,0),
+            new Point(2.5,0)
+        };
+
+        Matrix LCM = new Matrix(15, 15);
+        for (int i=0; i<15 ;i++){
+            for (int j=0; i<15 ;i++){
+                LCM.updateElement(i, j, Cond.ANDD);
+            }
+        }
+
+        Matrix PUV = new Matrix(1,15);
+        for (int i=0; i<PUV.N; i++){
+            PUV.updateElement(1, i, Cond.TRUE);
+        }
+
+        //The DECIDE function should return false because
+        // LIC 1,8,13 should be false due to 
+        //extremely high RADIUS1, which means some PUM elements should
+        //be false, and since all PUV elements are true it implies that
+        //the PUM rows which contains atleast one false element will
+        //lead to the corresponding row in FUV being false, which 
+        //means the DECIDE function should return false.
+        assertFalse(Decide.DECIDE(points.length, points, p, LCM, PUV));
+    }
+
+
+
 }
