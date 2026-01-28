@@ -55,11 +55,7 @@ public class Decide {
         return PUM;
     }
     
-    public static void main(String[] args) {
-        System.out.println("Build was successful. Hi from Decide!");
-    }
-
-    public static Matrix fuv_logic(Matrix PUM, Matrix PUV) {
+    public static Matrix FUV(Matrix PUM, Matrix PUV) {
         Matrix FUV = new Matrix(PUM.M, 1);
 
         for (int i = 0; i < PUM.M; i++) {
@@ -76,6 +72,10 @@ public class Decide {
             }
         }
         return FUV;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Build was successful. Hi from Decide!");
     }
     
 }
