@@ -31,7 +31,9 @@ We agreed to follow a continuous integration workstyle, where for every feature 
 
 ### [Alexander Mannertorn] — GitHub: [@knasssss]
 
-### [Elias Lastname] — GitHub: [@username]
+### [Elias Richard Næss] — GitHub: [@daDevBoat]
+
+Elias was reponsible for the implementation of **LIC 1, 7, and 13**. These methods use amongst other methods the **Point.distance()** and **Point.circleRadius** which he also was responsible for implementing. He also implemented the **Matrix class** and all its methods except for the **evalLine** method, and he also implemented the **Cond enum**. For all methods he created he was also responsible for the corresponding unit tests. He also was resposible (with collaberation with the rest of the group) for setting up the folder structure and the gradle wrapper build and the build file. 
 
 ### [Arnau Pelechano García] — GitHub: [@arpega75]
 
