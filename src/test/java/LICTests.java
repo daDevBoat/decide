@@ -709,6 +709,29 @@ public class LICTests {
     }
 
     @Test
+    public void LIC9_false_when_EPSILON_OutOfRange() {
+        /* Contract: Given EPSILON outside [0, PI), LIC9 must return FALSE */
+        Point[] points = new Point[] {
+            new Point(0,0), new Point(1,0), new Point(2,0), new Point(2,1), new Point(3,1)
+        };
+        int numPoints = points.length;
+
+        /* Case 1: EPSILON < 0 */
+        Parameters p1 = new Parameters();
+        p1.C_PTS = 1;
+        p1.D_PTS = 1;
+        p1.EPSILON = -0.1;
+        assertFalse(LIC.LIC9(numPoints, points, p1));
+
+        /* Case 2: EPSILON >= 1 */
+        Parameters p2 = new Parameters();
+        p2.C_PTS = 1;
+        p2.D_PTS = 1;
+        p2.EPSILON = Math.PI;
+        assertFalse(LIC.LIC9(numPoints, points, p2));
+    }
+
+    @Test
     public void LIC9_false_When_C_PTSplusD_PTS_GreaterThan_numPoints_minus_three() {
         /*
          * Contract: If C_PTS + D_PTS > numPoints - 3, LIC9 returns false (invalid
