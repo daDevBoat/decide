@@ -5,6 +5,10 @@ public class DecideTest {
     
     @Test
     public void testMatrix() {
+        /*
+        * Contract: The Matrix class allows for matrices to be initialized, for specific elements to be updated and
+        * for the elements to be fetched.
+        */
         Matrix m = new Matrix(5, 5);
         System.out.println(m);
         m.updateElement(2, 2, Cond.NOTUSED);

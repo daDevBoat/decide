@@ -7,6 +7,7 @@ public class LICTests {
 
     @Test
     public void testTest() {
+        // Contract: 2 + 2 should be 4, used to see if the JUnit works
         assertEquals(4, 2 + 2);
     }
 
@@ -49,6 +50,10 @@ public class LICTests {
     }
 
     @Test
+    /*
+    * Contract: the function returns the radius of the smallest circle that contains or has the three
+    * points on its boarder.
+    */ 
     public void testCircleRadiusFunction() {
         Point p1 = new Point(2, 2);
         Point p2 = new Point(8, 2);
@@ -58,6 +63,10 @@ public class LICTests {
     }
 
     @Test
+    /*
+    * Contract: DistancePointToLine returns the closest distance of the 3rd point p3 to the line created by points
+    * p1 and p2.   
+    */
     public void testDistancePointToLine() {
         Point p1 = new Point(2, 2);
         Point p2 = new Point(5, 4);
@@ -70,6 +79,13 @@ public class LICTests {
     }
 
     @Test
+    /*
+    * Contract: PointQuadrantEvaluation fulfills: There exists at least one set of Q PTS consecutive data points that lie 
+    * in more than QUADS quadrants. Where there is ambiguity as to which quadrant contains a given point, priority of  
+    * decision will be by quadrant number, i.e., I, II, III, IV. For example, the data point (0,0)
+    * is in quadrant I, the point (-l,0) is in quadrant II, the point (0,-l) is in quadrant III, the point
+    * (0,1) is in quadrant I and the point (1,0) is in quadrant I.
+    */
     public void testPointQuadrantEvaluation() {
         Point[] quadOne = new Point[]{
             new Point(0,0),
@@ -1169,5 +1185,4 @@ public class LICTests {
 
         assertFalse(LIC.LIC14(points.length, points, p));
     }
-
 }
