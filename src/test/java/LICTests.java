@@ -688,7 +688,7 @@ public class LICTests {
     }
 
     @Test
-    public void LIC9_false_When_C_PTSplusD_PTS_LesserOrEqualTo_numPoints_minus_three() {
+    public void LIC9_false_When_C_PTSplusD_PTS_GreaterThan_numPoints_minus_three() {
         /*
          * Contract: If C_PTS + D_PTS > numPoints - 3, LIC9 returns false (invalid
          * input)
