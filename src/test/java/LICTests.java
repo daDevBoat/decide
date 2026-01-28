@@ -1192,7 +1192,7 @@ public class LICTests {
         assertTrue(LIC.LIC14(points.length, points, p));
     }
 
-        @Test
+    @Test
     void LIC14_false_one_triplet() {
         /*
          * Contract: LIC14 is false when there exists no triplet of points (i, j=i+E_PTS+1, k=i+E_PTS+1+F_PTS+1) that forms a 
@@ -1212,6 +1212,30 @@ public class LICTests {
             new Point(1,2),
             new Point(2.5,1),
             new Point(1,0)
+        };
+
+        assertFalse(LIC.LIC14(points.length, points, p));
+    }
+
+    @Test
+    void LIC14_false_too_few_points() {
+        /*
+         * Contract: LIC14 is false when there exists no triplet of points (i, j=i+E_PTS+1, k=i+E_PTS+1+F_PTS+1) that forms a 
+         * triangle with area > AREA1 or there does not exist at least one other or same triplet of points with area < AREA2.
+         * Set E_PTS=1, F_PTS=1, but use only four points, which triggers the guard clause
+         * to flag not enough points and return false (and trivially there exists no such previously mentioned triplet)
+         */
+        Parameters p = new Parameters();
+        p.E_PTS = 1;
+        p.F_PTS = 1;
+        p.AREA1 = 0.9;
+        p.AREA2 = 0.5;
+
+        Point[] points = new Point[]{
+            new Point(0,0),
+            new Point(2,0),
+            new Point(1,2),
+            new Point(2.5,1),
         };
 
         assertFalse(LIC.LIC14(points.length, points, p));

@@ -222,6 +222,9 @@ public class LIC {
         if (numPoints < 5 || p.AREA1 < 0 || p.AREA2 < 0 || p.E_PTS < 1 || p.F_PTS < 1) {
             return false;
         }
+        if (p.E_PTS + p.F_PTS + 3 > numPoints) {
+            return false;
+        }
 
         boolean moreThanArea1 = false;
         boolean lessThanArea2 = false;
