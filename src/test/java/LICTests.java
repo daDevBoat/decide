@@ -1048,11 +1048,11 @@ public class LICTests {
         */
         Point[] points = new Point[] {
                 new Point(2, 2),
-                new Point(100, 100),
-                new Point(8, 2),
-                new Point(101, 101),
-                new Point(6, 5),
                 new Point(99, 99),
+                new Point(8, 2),
+                new Point(100, 100),
+                new Point(6, 5),
+                new Point(101, 101),
                 new Point(5, 11)
         };
 
