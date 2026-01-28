@@ -911,6 +911,11 @@ public class LICTests {
 
     @Test
     public void LIC12_true_existsPair_GreaterThan_LENGTH1_and_existsPair_LessThan_LENGTH2() {
+        /* Contract: LIC12 returns ture iff:
+           A. There exists at least one pair of points (i, i+K_PTS+1) with distance > LENGHT1, and
+           B. There exists at least one (possibly different) pair of points (j, j+K_PTS+1) with distance < LENGTH2.
+           Both A and B conditions must hold to be satisfied and return true.
+         */
 
         int numPoints = 5;
 
@@ -932,6 +937,9 @@ public class LICTests {
 
     @Test
     public void LIC12_false_when_onlyGreaterThan_LENGTH1() {
+        /* Contract: If the condition A holds (exists pair of points with distance > LENGTH1) 
+           but the condition B does not (no pair with distance < LENGTH2), then LIC12 must return false. 
+         */
 
         int numPoints = 5;
 
@@ -953,6 +961,10 @@ public class LICTests {
 
     @Test
     public void LIC12_false_whenOnlyLessThan_LENGTH2() {
+        /* Contract: 
+            If condition B holds (exists pair with distance < LENGTH2) but condition A does not
+            (no pair with distance > LENGTH1), then LIC12 must return false.
+        */
 
         int numPoints = 5;
 
@@ -974,6 +986,7 @@ public class LICTests {
 
     @Test
     public void LIC12_false_when_numPoints_lessThan_3() {
+        /* Contract: When numPoints < 3, the condition is not met and must return false. */
 
         int numPoints = 2;
 
@@ -992,6 +1005,7 @@ public class LICTests {
 
     @Test
     public void LIC12_false_when_LENGTH2_IsNegative() {
+        /* Contract: LENGTH2 must be non-negative. If LENGTH2 < 0 (invalid input), LIC12 must return false */
 
         int numPoints = 3;
 
