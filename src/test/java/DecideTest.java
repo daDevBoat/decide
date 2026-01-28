@@ -140,7 +140,7 @@ public class DecideTest {
             }
         }
 
-        Matrix actual = Decide.fuv_logic(PUM, PUV);
+        Matrix actual = Decide.FUV(PUM, PUV);
         for (int i = 0; i < 3; i++) {
             assertEquals(FUV.getElement(i, 0), actual.getElement(i, 0));
         }
@@ -164,7 +164,7 @@ public class DecideTest {
             }
         }
 
-        Matrix actual = Decide.fuv_logic(PUM, PUV);
+        Matrix actual = Decide.FUV(PUM, PUV);
         for (int i = 0; i < 3; i++) {
             assertEquals(FUV.getElement(i, 0), actual.getElement(i, 0));
         }
@@ -193,7 +193,7 @@ public class DecideTest {
         PUV.updateElement(1, 0, Cond.FALSE);
         FUV.updateElement(1, 0, Cond.TRUE);
 
-        Matrix actual = Decide.fuv_logic(PUM, PUV);
+        Matrix actual = Decide.FUV(PUM, PUV);
         for (int i = 0; i < 3; i++) {
             assertEquals(FUV.getElement(i, 0), actual.getElement(i, 0));
         }
