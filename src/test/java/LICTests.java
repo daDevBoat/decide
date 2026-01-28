@@ -240,7 +240,7 @@ public class LICTests {
     // LIC3 Unit Tests
 
     @Test
-    void LIC3_true_Triangle_GreaterThan_AREA1() {
+    public void LIC3_true_Triangle_GreaterThan_AREA1() {
         /*
          * Contract: LIC must return true iff exists at least one set of three
          * consecutive points
@@ -263,7 +263,21 @@ public class LICTests {
     }
 
     @Test
-    void LIC3_false_Triangle_NotGreaterThan_AREA1() {
+    public void LIC3_false_InputInvalid_AREA1_Negative() {
+        /* Contract: If AREA1 < 0 (invalid input), LIC3 must return false */
+        int numPoints = 3;
+        Point[] points = new Point[] {
+            new Point(0, 0), new Point(4,0), new Point(0,3)
+        };
+
+        Parameters p = new Parameters();
+        p.AREA1 = -1.0;
+
+        assertFalse(LIC.LIC3(numPoints, points, p));
+    }
+
+    @Test
+    public void LIC3_false_Triangle_NotGreaterThan_AREA1() {
         /*
          * Contract: If for every three consecutive points, the triangle area
          * is NOT strictly greater than AREA1, then LIC3 must return false.
@@ -284,7 +298,7 @@ public class LICTests {
     }
 
     @Test
-    void LIC3_false_InputInvalid_numPoints_Equals_2() {
+    public void LIC3_false_InputInvalid_numPoints_Equals_2() {
         /*
          * Contract: If there are 2 points, LIC3 has no valid triple consecutive points
          * to evaluate,
