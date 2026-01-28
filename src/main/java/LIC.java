@@ -43,24 +43,6 @@ public class LIC {
         return false;
     }
 
-    public static boolean LIC6(int numPoints, Point[] points, Parameters p) {
-        if (numPoints < 3 || p.N_PTS < 3 || p.DIST < 0 || numPoints < p.N_PTS ||
-            p.DIST < 0) return false;
-
-        for (int i = 0; i <= numPoints - p.N_PTS; i++) {
-            Point p_start = points[i];
-            Point p_end = points[i + p.N_PTS - 1];
-
-            for (int j = i + 1; j <= i + p.N_PTS - 2; j++) {
-                Point p_mid = points[j];
-                if (Point.distancePointToLine(p_start, p_end, p_mid) > p.DIST) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public static boolean LIC3(int numPoints, Point[] points, Parameters p) {
         if (p.AREA1 < 0) return false;
         if(numPoints == 2) return false;
@@ -98,6 +80,24 @@ public class LIC {
         for (int i = 0; i < numPoints - 1; i++) {
             if(points[i+1].x - points[i].x < 0) {
                 return true;
+            }
+        }
+        return false;
+    }
+    
+    public static boolean LIC6(int numPoints, Point[] points, Parameters p) {
+        if (numPoints < 3 || p.N_PTS < 3 || p.DIST < 0 || numPoints < p.N_PTS ||
+            p.DIST < 0) return false;
+
+        for (int i = 0; i <= numPoints - p.N_PTS; i++) {
+            Point p_start = points[i];
+            Point p_end = points[i + p.N_PTS - 1];
+
+            for (int j = i + 1; j <= i + p.N_PTS - 2; j++) {
+                Point p_mid = points[j];
+                if (Point.distancePointToLine(p_start, p_end, p_mid) > p.DIST) {
+                    return true;
+                }
             }
         }
         return false;
@@ -199,7 +199,6 @@ public class LIC {
 
         return false;
     }
-
 
     public static boolean LIC13(int numPoints, Point[] points, Parameters p) {
         if (numPoints < 5 || p.RADIUS2 < 0 || p.RADIUS1 < 0 || p.A_PTS < 1 || p.B_PTS < 1) return false;
