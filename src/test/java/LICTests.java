@@ -986,6 +986,23 @@ public class LICTests {
     }
 
     @Test
+    public void LIC12_false_K_pts_OutOfRange() {
+        /* Contract: Given invalid K_PTS (outside [1, numPoints -2]), LIC12 must return false */
+
+        Parameters p = new Parameters();
+        p.K_PTS = 0;
+        p.LENGTH1 = 1.0;
+        p.LENGTH2 = 2.0;
+
+        Point[] points = new Point[] {
+            new Point(0,0), new Point(1,0), new Point(2,0)
+        };
+        int numPoints = points.length;
+
+        assertFalse(LIC.LIC12(numPoints, points, p));
+    }
+
+    @Test
     public void LIC12_false_when_onlyGreaterThan_LENGTH1() {
         /* Contract: If the condition A holds (exists pair of points with distance > LENGTH1) 
            but the condition B does not (no pair with distance < LENGTH2), then LIC12 must return false. 
@@ -1072,6 +1089,22 @@ public class LICTests {
 
         assertFalse(LIC.LIC12(numPoints, points, p));
 
+    }
+
+    @Test
+    public void LIC12_false_when_LENGTH1_is_Negative() {
+        /* Contract: Given LENGTH1 < 0, LIC12 must return false */
+        Parameters p = new Parameters();
+        p.K_PTS = 1;
+        p.LENGTH1 = -0.5;
+        p.LENGTH2 = 2.0;
+
+        Point[] points = new Point[] {
+            new Point(0,0), new Point(1,0), new Point(2,0)
+        };
+        int numPoints = points.length;
+
+        assertFalse(LIC.LIC12(numPoints, points, p));
     }
 
     @Test

@@ -184,6 +184,8 @@ public class LIC {
     public static boolean LIC12(int numPoints, Point[] points , Parameters p){
         if(numPoints < 3) return false;
         if(p.LENGTH2 < 0) return false; 
+        if(p.LENGTH1 < 0) return false;
+        if(p.K_PTS < 1 || p.K_PTS > numPoints -2) return false;
 
         boolean condA = false; /* Exists pair with distance > LENGTH1 */
         boolean condB = false; /* Exists pair with distance < LENGTH2 */
