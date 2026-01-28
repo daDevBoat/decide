@@ -1,6 +1,6 @@
 public class Decide {
 
-    public static boolean DECIDE(int numPoints, Point[] points, Parameters p, Matrix LCM, boolean[] PUV) {
+    public static boolean DECIDE(int numPoints, Point[] points, Parameters p, Matrix LCM, Matrix PUV) {
 
 
         return true;
