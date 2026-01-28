@@ -14,6 +14,7 @@ public class DecideTest {
     }
 
     void matrix_eval_line_false() {
+        // Contract: Matrix_eval_line returns false iff at least one the elements in a row are NOT Cond.TRUE
         Matrix m = new Matrix(1, 6);
 
         for (int i = 0; i < 6; i++) {
@@ -25,6 +26,7 @@ public class DecideTest {
 
     @Test
     void matrix_eval_line_true() {
+        // Contract: Matrix_eval_line returns true iff all the elements in a row are Cond.TRUE
         Matrix m = new Matrix(1, 6);
 
         for (int i = 0; i < 6; i++) {
@@ -122,6 +124,10 @@ public class DecideTest {
 
     @Test
     void FUV_logic_true() {
+        /*
+        * The FUV function should return a vector with all elements set to Cond.TRUE iff all elements of the 
+        * PUM are Cond.TRUE 
+        * */
         Matrix PUV = new Matrix(3, 1);
         Matrix PUM = new Matrix(3, 3);
         Matrix FUV = new Matrix(3, 1);
@@ -142,6 +148,10 @@ public class DecideTest {
 
     @Test
     void FUV_logic_false_columns() {
+        /*
+        * The FUV function should return a vector with all elements set to Cond.FALSE iff all elements of the 
+        * PUM are Cond.FALSE 
+        * */
         Matrix PUV = new Matrix(3, 1);
         Matrix PUM = new Matrix(3, 3);
         Matrix FUV = new Matrix(3, 1);
@@ -162,6 +172,12 @@ public class DecideTest {
 
     @Test
     void FUV_logic_mixed_columns_with_PUV_false() {
+        /*
+        * The FUV function should return a vector like [Cond.FALSE, Cond.TRUE, Cond.FALSE] iff all elements of the 
+        * PUM are Cond.FALSE, and the PUV is set to Cond.TRUE in every position, 
+        * except for index 1 where it has value Cond.FALSE.
+        * PUV = [Cond.TRUE, Cond.FALSE, Cond.TRUE]
+        * */
         Matrix PUV = new Matrix(3, 1);
         Matrix PUM = new Matrix(3, 3);
         Matrix FUV = new Matrix(3, 1);
