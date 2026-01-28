@@ -210,30 +210,6 @@ public class DecideTest {
 
     @Test
     public void testTrueCaseDecide() {
-        /* Contract: Decide.DECIDE(int numPoints, Point[] points, 
-        Parameters p, Matrix LCM, boolean[] PUV)
-        should return true if and only if FUV[i] is true for all i = 0,1,...,14 */
-
-        /*d ouble LENGTH1; / / L e n gt h i n L ICs 0 , 7 , 12
-d ouble RADIUS1 ; / / R a di u s i n L ICs 1 , 8 , 13
-d ouble EPSILON ; / / D e v i a t i o n f r om P I i n L ICs 2 , 9
-d ouble AREA1; / / Area i n L ICs 3 , 1 0 , 14
-i n t Q PTS ; / / No . o f c o n s e c u t i v e p o i n t s i n LIC 4
-i n t QUADS; / / No . o f q u a d r a nt s i n LIC 4
-d ouble DIST ; / / Di s t a n c e i n LIC 6
-i n t N PTS ; / / No . o f c o n s e c u t i v e p t s . i n LIC 6
-i n t K PTS ; / / No . o f i n t . p t s . i n L ICs 7 , 12
-i n t A PTS ; / / No . o f i n t . p t s . i n L ICs 8 , 13
-i n t B PTS ; / / No . o f i n t . p t s . i n L ICs 8 , 13
-i n t C PTS ; / / No . o f i n t . p t s . i n LIC 9
-i n t D PTS ; / / No . o f i n t . p t s . i n LIC 9
-i n t E PTS ; / / No . o f i n t . p t s . i n L ICs 1 0 , 14
-i n t F PTS ; / / No . o f i n t . p t s . i n L ICs 1 0 , 14
-i n t G PTS ; / / No . o f i n t . p t s . i n LIC 11
-d ouble LENGTH2; / / Maximum l e n g t h i n LIC 12
-d ouble RADIUS2 ; / / Maximum r a d i u s i n LIC 13
-d ouble AREA2; / / Maximum a r e a i n LIC 14
- */
         Parameters p = new Parameters();
         p.LENGTH1 = 0; //Best for all LICS
         p.RADIUS1 = 0; //Best for all LICS
@@ -344,7 +320,7 @@ d ouble AREA2; / / Maximum a r e a i n LIC 14
         Matrix LCM = new Matrix(15, 15);
         for(int i = 0; i < 15; i++){
             for(int j= 0; j < 15; j++){
-                LCM.updateElement(i, j, Cond.NOTUSED);
+                LCM.updateElement(i, j, Cond.ANDD);
             }
         }
 
