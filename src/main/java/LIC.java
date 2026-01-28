@@ -132,6 +132,7 @@ public class LIC {
         if(numPoints < 5) return false;
         if(p.C_PTS < 1 || p.D_PTS < 1) return false;
         if(p.C_PTS + p.D_PTS > numPoints - 3) return false;
+        if(p.EPSILON < 0 || p.EPSILON >= Math.PI) return false;
 
         for(int i = 0; i + p.C_PTS + p.D_PTS + 2 < numPoints; i++){
 
