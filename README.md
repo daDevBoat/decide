@@ -30,6 +30,7 @@ We agreed to follow a continuous integration workstyle, where for every feature 
 ## Statement of Contributions
 
 ### [Alexander Mannertorn] — GitHub: [@knasssss]
+Alexander was responsible for the implementation of **LIC 2, 8, and 11**, including the implementation of their corresponding Unit Tests. These methods use amongs other methods the **Point.angle()** function which he also was responsible for implementing and its unit tests. He also made the **LICENSE** file and wrote a large part of the **README** file. He also made 2 unittests for the **Decide.DECIDE()** function. 
 
 ### [Elias Richard Næss] — GitHub: [@daDevBoat]
 
