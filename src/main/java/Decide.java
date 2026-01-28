@@ -1,6 +1,9 @@
 public class Decide {
 
     public static boolean DECIDE(int numPoints, Point[] points, Parameters p, Matrix LCM, Matrix PUV) {
+        /* Guard clause */  
+        if (numPoints < 2) return false;      
+        
         Matrix CMV = CMV(numPoints, points, p);
         System.out.println("---CMV---");
         System.out.println(CMV.toString());
