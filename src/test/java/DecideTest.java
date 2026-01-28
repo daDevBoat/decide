@@ -357,7 +357,7 @@ d ouble AREA2; / / Maximum a r e a i n LIC 14
         assertTrue(Decide.DECIDE(points.length, points, p, LCM, PUV));
     }
 
-
+    @Test
     public void testFalseCaseDecide() {
         /* Contract: Decide.DECIDE(int numPoints, Point[] points, 
         Parameters p, Matrix LCM, boolean[] PUV)
@@ -472,15 +472,16 @@ d ouble AREA2; / / Maximum a r e a i n LIC 14
 
         Matrix LCM = new Matrix(15, 15);
         for (int i=0; i<15 ;i++){
-            for (int j=0; i<15 ;i++){
+            for (int j=0; j<15 ;j++){
                 LCM.updateElement(i, j, Cond.ANDD);
             }
         }
 
-        Matrix PUV = new Matrix(1,15);
-        for (int i=0; i<PUV.N; i++){
-            PUV.updateElement(1, i, Cond.TRUE);
+        Matrix PUV = new Matrix(15, 1);
+        for (int i = 0; i < PUV.N; i++) {
+            PUV.updateElement(i, 0, Cond.TRUE);
         }
+
 
         //The DECIDE function should return false because
         // LIC 1,8,13 should be false due to 
