@@ -152,7 +152,8 @@ public class LIC {
     }
 
     public static boolean LIC10(int numPoints, Point[] points, Parameters p) {
-        if (numPoints < 5 || p.E_PTS < 1 ||p.F_PTS < 1 || p.E_PTS + p.F_PTS > numPoints - 3) return false;
+        if (numPoints < 5 || p.E_PTS < 1 ||p.F_PTS < 1 || p.E_PTS + p.F_PTS > numPoints - 3 ||
+            p.AREA1 < 0) return false;
 
         for (int i = 0; i < numPoints - p.F_PTS - p.E_PTS - 2; i ++) {
             Point p1 = points[i];

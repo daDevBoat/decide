@@ -801,7 +801,7 @@ public class LICTests {
 
     @Test
     public void LIC10_false_when_too_few_points() {
-        // Contract: LIC10 is false iff less than 5 points are being passed
+        // Contract: LIC10 is false if less than 5 points are being passed
         Point [] points = new Point[] {
                 new Point(1, 0),
                 new Point(0, 0),
@@ -815,8 +815,23 @@ public class LICTests {
     }
 
     @Test
+    public void LIC10_false_when_area_too_small() {
+        // Contract: LIC10 is false if the area is smaller than 0
+        Point [] points = new Point[] {
+                new Point(1, 0),
+                new Point(0, 0),
+                new Point(1, 0)
+        };
+        Parameters p = new Parameters();
+        p.E_PTS = 2;
+        p.F_PTS = 2;
+        p.AREA1 = -1;
+        assertFalse(LIC.LIC10(3, points, p));
+    }
+
+    @Test
     public void LIC10_false_when_EPTS_plus_FTPS_too_large() {
-        // Contract: LIC10 is false iff E_PTS + F_PTS <= numpoints - 3
+        // Contract: LIC10 is false if E_PTS + F_PTS <= numpoints - 3
         Point [] points = new Point[] {
                 new Point(1, 0),
                 new Point(0, 0),
