@@ -44,6 +44,7 @@ Arnau was responsible for the implementation of **LICs 3, 9 and 12**, including 
 
 Jannis was responsible for the implementation of **LIC 0, 6 and 10**, and the setup of the **Point.distancePointToLine** function together with the corresponding Unit Tests. He also implemented the **PUV function** and the **matrix line evaluation**, together with the corresponding tests. In addition, he set up the auto build and test for GitHub, that allowed the team to work in a continious integration way-of-working, where new changes are merged into main, as soon as they are completed. He was also responsible for parts of the documentation.
 
-### [Jonte Name] — GitHub: [@username]
+### [Jonatan Bölenius] — GitHub: [@djonte]
+Jonatan was responsible for the implementation of **LIC 4**, with a helper function **pointQuadrant** for evaluating Point quadrants, as well as **LIC 5 and 14** and all corresponding unit tests. Furthermore, Jonatan contributed with the assemby of the DECIDE function and the final output logic, together with one of the final unit tests with contribution on another for the DECIDE function. 
 
 ## License: MIT (see LICENSE)
