@@ -1,11 +1,27 @@
 public class Decide {
 
     public static boolean DECIDE(int numPoints, Point[] points, Parameters p, Matrix LCM, Matrix PUV) {
-        /* Guard clauses */
-        if (numPoints < 2) return false;
+        /* Guard clause */  
+        if (numPoints < 2) return false;      
+        
+        Matrix CMV = CMV(numPoints, points, p);
+        System.out.println("---CMV---");
+        System.out.println(CMV.toString());
+        Matrix PUM = PUM(CMV, LCM);
+        System.out.println("---PUM---");
+        System.out.println(PUM.toString());
+        Matrix FUV = FUV(PUM, PUV);
+        System.out.println("---FUV---");
+        System.out.println(FUV.toString());
 
-
-        return true;
+        boolean allTrue = true;
+        for (int i = 0; i < FUV.M; i++) {
+            if (FUV.getElement(i, 0) == Cond.FALSE) {
+                allTrue = false;
+            }
+        }
+        System.out.println(allTrue ? "YES" : "NO");
+        return allTrue;
 
     }
 

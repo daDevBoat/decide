@@ -332,12 +332,18 @@ d ouble AREA2; / / Maximum a r e a i n LIC 14
             new Point(2.5,0)
         };
         //Implement valid LCM
-        Matrix LCM = new Matrix(5, 5);
+        Matrix LCM = new Matrix(15, 15);
+        for(int i = 0; i < 15; i++){
+            for(int j= 0; j < 15; j++){
+                LCM.updateElement(i, j, Cond.NOTUSED);
+            }
+        }
 
         //Implement valid PUV
-        Matrix PUV = new Matrix(2,1);
-        PUV.updateElement(0, 0, Cond.TRUE);
-        PUV.updateElement(1, 0, Cond.TRUE);
+        Matrix PUV = new Matrix(15, 1);
+        for (int i = 0; i < 15; i++) {
+            PUV.updateElement(i, 0, Cond.TRUE);
+        }
 
         assertTrue(Decide.DECIDE(points.length, points, p, LCM, PUV));
     }
