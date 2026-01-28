@@ -335,7 +335,9 @@ d ouble AREA2; / / Maximum a r e a i n LIC 14
         Matrix LCM = new Matrix(5, 5);
 
         //Implement valid PUV
-        boolean[] PUV = {true,false};
+        Matrix PUV = new Matrix(2,1);
+        PUV.updateElement(0, 0, Cond.TRUE);
+        PUV.updateElement(1, 0, Cond.TRUE);
 
         assertTrue(Decide.DECIDE(points.length, points, p, LCM, PUV));
     }
