@@ -39,7 +39,9 @@ Elias was reponsible for the implementation of **LIC 1, 7, and 13**. These metho
 
 Arnau was responsible for the implementation of **LICs 3, 9 and 12**, including the implementation of their corresponding Unit Tests. He created the **Parameters class**. In addition, he implemented the **CMV function and the PUM function**, together with their respective Unit Tests. For the development of the LICs, he implemented in the Point class the **triangleArea and directedAngle methods**, as well as their respective Unit Tests.
 
-### [Jannis Name] — GitHub: [@username] 
+### [Jannis Name] — GitHub: [@JannisHaeffner]
+
+Jannis was responsible for the implementation of **LIC 0, 6 and 10**, and the setup of the **Point.distancePointToLine** function together with the corresponding Unit Tests. He also implemented the **PUV function** and the **matrix line evaluation**, together with the corresponding tests. In addition, he set up the auto build and test for GitHub, that allowed the team to work in a continious integration way-of-working, where new changes are merged into main, as soon as they are completed. He was also responsible for parts of the documentation.
 
 ### [Jonte Name] — GitHub: [@username]
 
