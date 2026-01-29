@@ -371,13 +371,34 @@ public class LICTests {
     }
 
     @Test
-    void LIC4_false_on_bad_input() {
+    void LIC4_throws_on_too_few_points() {
         /* 
          * Contract: LIC4 has constraints: 2 <= Q_PTS <= NUMPOINTS, 1 <= QUADS <= 3. 
-        Set Q_PTS = 5, QUADS = 4, with 4 points.
+        * Set Q_PTS = 5, QUADS = 3, with 4 points. 
          */
         Parameters p = new Parameters();
         p.Q_PTS = 5;
+        p.QUADS = 3;
+        
+        Point[] points = new Point[] {
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(-1, 0),
+                new Point(0, -2),
+        };
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC4(points.length, points, p);
+        });
+    }
+
+    @Test
+    void LIC4_throws_on_too_many_quads() {
+        /* 
+         * Contract: LIC4 has constraints: 2 <= Q_PTS <= NUMPOINTS, 1 <= QUADS <= 3. 
+         * Set Q_PTS = 3, QUADS = 4, with 4 points.
+         */
+        Parameters p = new Parameters();
+        p.Q_PTS = 3;
         p.QUADS = 4;
         
         Point[] points = new Point[] {
@@ -386,11 +407,13 @@ public class LICTests {
                 new Point(-1, 0),
                 new Point(0, -2),
         };
-        assertFalse(LIC.LIC4(points.length, points, p));
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC4(points.length, points, p);
+        });
     }
 
     @Test
-    void LIC4_false_five_consecutive_points_too_few_quadrants() {
+    void LIC4_throws_on_too_few_quadrants() {
         /* 
          * Contract: LIC4 is false when the are not Q_PTS number of consecutive points that are contained in more than QUADS quadrants.
         Set Q_PTS=5, QUADS=2, with an array of five points that are contained in two quadrants. 
@@ -441,6 +464,22 @@ public class LICTests {
         };
 
         assertFalse(LIC.LIC5(points.length, points, p));
+    }
+
+    @Test
+    void LIC5_throws_on_too_few_points() {
+        /* 
+         * Contract: LIC5 needs at least two points to evaluate.
+         * Use only 1 point.
+         */
+        Parameters p = new Parameters();
+        
+        Point[] points = new Point[] {
+                new Point(0, 0)
+        };
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC5(points.length, points, p);
+        });
     }
 
     @Test
@@ -1443,10 +1482,10 @@ public class LICTests {
     }
 
     @Test
-    void LIC14_false_on_bad_input() {
+    void LIC14_false_on_too_few_points() {
         /*
          * Contract: LIC14 is false when NUMPOINTS < 5
-         * Use 4 points to test.
+         * Use 4 points to test, with otherwise correct parameter setup.
          */
         Parameters p = new Parameters();
         p.E_PTS = 1;
@@ -1462,5 +1501,84 @@ public class LICTests {
         };
 
         assertFalse(LIC.LIC14(points.length, points, p));
+    }
+
+    @Test
+    void LIC14_throws_on_negative_area() {
+        /*
+         * Contract: Negative area is not a correct input.
+         * Set negative areas, with otherwise correct parameters and point setup.
+         */
+        Parameters p = new Parameters();
+        p.E_PTS = 1;
+        p.F_PTS = 1;
+        p.AREA1 = -0.9;
+        p.AREA2 = -0.5;
+
+        Point[] points = new Point[]{
+            new Point(0,0),
+            new Point(2,0),
+            new Point(1,2),
+            new Point(2.5,1),
+            new Point(1,0),
+            new Point(2.5,0)
+        };
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC14(points.length, points, p);
+        });
+    }
+
+    @Test
+    void LIC14_throws_on_too_large_E_PTS_and_F_PTS() {
+        /*
+         * Contract: We require a minimum of E_PTS+F_PTS+3 points to evaluate LIC14.
+         * Set E_PTS=F_PTS=2, which requires a minimum of 7 points to evaluate, use
+         * 6 points. Otherwise use correct parameters and point setup.
+         */
+        Parameters p = new Parameters();
+        p.E_PTS = 2;
+        p.F_PTS = 2;
+        p.AREA1 = 0.9;
+        p.AREA2 = 0.5;
+
+        Point[] points = new Point[]{
+            new Point(0,0),
+            new Point(2,0),
+            new Point(1,2),
+            new Point(2.5,1),
+            new Point(1,0),
+            new Point(2.5,0)
+        };
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC14(points.length, points, p);
+        });
+    }
+
+    @Test
+    void LIC14_throws_on_too_small_E_PTS_and_F_PTS() {
+        /*
+         * Contract: E_PTS >= 1 AND F_PTS >= 1.
+         * Set E_PTS=F_PTS=0, with otherwise correct parameters and point setup.
+         */
+        Parameters p = new Parameters();
+        p.E_PTS = 0;
+        p.F_PTS = 0;
+        p.AREA1 = 0.9;
+        p.AREA2 = 0.5;
+
+        Point[] points = new Point[]{
+            new Point(0,0),
+            new Point(2,0),
+            new Point(1,2),
+            new Point(2.5,1),
+            new Point(1,0),
+            new Point(2.5,0)
+        };
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC14(points.length, points, p);
+        });
     }
 }
