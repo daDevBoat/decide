@@ -58,10 +58,10 @@ public class LIC {
 
     public static boolean LIC4(int numPoints, Point[] points, Parameters p) {
         if (p.Q_PTS > numPoints || p.Q_PTS < 2) {
-            return false;
+            throw new IllegalArgumentException();
         }
         if (p.QUADS < 1 || p.QUADS > 3) {
-            return false;
+            throw new IllegalArgumentException();
         }
 
         for (int i = 0; i <= numPoints - p.Q_PTS; i++) {
@@ -79,6 +79,9 @@ public class LIC {
     }
 
     public static boolean LIC5(int numPoints, Point[] points, Parameters p) {
+        if (numPoints < 2) {
+            throw new IllegalArgumentException();
+        }
         for (int i = 0; i < numPoints - 1; i++) {
             if(points[i+1].x - points[i].x < 0) {
                 return true;
@@ -226,11 +229,14 @@ public class LIC {
     }
 
     public static boolean LIC14(int numPoints, Point[] points, Parameters p) {
-        if (numPoints < 5 || p.AREA1 < 0 || p.AREA2 < 0 || p.E_PTS < 1 || p.F_PTS < 1) {
+        if (numPoints < 5) {
             return false;
+        } 
+        if (p.AREA1 < 0 || p.AREA2 < 0 || p.E_PTS < 1 || p.F_PTS < 1) {
+            throw new IllegalArgumentException();
         }
         if (p.E_PTS + p.F_PTS + 3 > numPoints) {
-            return false;
+            throw new IllegalArgumentException();
         }
 
         boolean moreThanArea1 = false;
