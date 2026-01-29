@@ -244,7 +244,9 @@ public class LICTests {
         };
 
         //Tests that false is returned when NUMPOINTS < 3
-        assertFalse(LIC.LIC2(points1.length, points1, p));
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC2(points1.length, points1, p);
+        });
 
         //Tests that false is returned if any point coincides with the vertex
         assertFalse(LIC.LIC2(points2.length, points2, p));
@@ -255,11 +257,15 @@ public class LICTests {
 
         //Tests that false is returned when EPSILON < 0
         p.EPSILON = -0.01;
-        assertFalse(LIC.LIC2(points4.length, points4, p));
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC2(points4.length, points4, p);
+        });
 
         //Tests that false is returned when EPISILON > PI
         p.EPSILON = PI + 0.01;
-        assertFalse(LIC.LIC2(points4.length, points4, p));
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC2(points4.length, points4, p);
+        });
 
         //Tests that false is returned when there does not exist at least one set of three 
         //consecutive data points which form an angle such that: angle < (PI−EPSILON)
@@ -698,19 +704,6 @@ public class LICTests {
          * A PTS+B PTS ≤ (NUMPOINTS−3)
          */
 
-        Point[] points1 = new Point[] {
-                new Point(0, 10),
-                new Point(0, 0),
-                new Point(-10, 0),
-                new Point(10, 0)
-        };
-        // Tests that false is returned when NUMPOINTS < 5
-        Parameters p = new Parameters();
-        p.RADIUS1 = 3;
-        p.A_PTS = 1;
-        p.B_PTS  = 1;
-        assertFalse(LIC.LIC8(points1.length, points1, p));
-
         Point[] points2 = new Point[] {
                 new Point(0, 10),
                 new Point(0, 0),
@@ -719,23 +712,28 @@ public class LICTests {
                 new Point(10, 0)
         };
 
-        
+        Parameters p = new Parameters();
         p.RADIUS1 = 1;
         p.A_PTS = 0;
         p.B_PTS  = 1;
 
-        // Tests that false is returned when A PTS < 1
-        assertFalse(LIC.LIC8(points2.length, points2, p));
-
-        // Tests that false is returned when B PTS < 1
+        // Tests that IllegalArgumentException is thrown when A PTS < 1
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC8(points2.length, points2, p);
+        });
+        // Tests that IllegalArgumentException is thrown when B PTS < 1
         p.A_PTS = 1;
         p.B_PTS = 0;
-        assertFalse(LIC.LIC8(points2.length, points2, p));
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC8(points2.length, points2, p);
+        });
 
-        // Tests that false is returned when A PTS + B PTS > (NUMPOINTS-3)
+        // Tests that IllegalArgumentException is thrown when A PTS + B PTS > (NUMPOINTS-3)
         p.A_PTS = 2;
         p.B_PTS = 1;
-        assertFalse(LIC.LIC8(points2.length, points2, p));
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC8(points2.length, points2, p);
+        });
 
         // Tests that false is returned when there exists a set of three data points
         // separated by exactly A PTS and B PTS
@@ -763,9 +761,11 @@ public class LICTests {
         p.RADIUS1 = 1;
         assertFalse(LIC.LIC8(points3.length, points3, p));
 
-        // Tests that false is returned if RADIUS1 < 0:
+        // Tests that IllegalArgumentException is thrown when RADIUS1 < 0:
         p.RADIUS1 = -1; 
-        assertFalse(LIC.LIC8(points2.length, points2, p));
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC8(points2.length, points2, p);
+        });
 
         p.RADIUS1 = 1;
         // Tests that true is returned for a valid input
@@ -1068,11 +1068,6 @@ public class LICTests {
             new Point(-1, 1) 
         };
 
-        Point[] points2 = new Point[] {
-            new Point(1, -1),  
-            new Point(-1, 1) 
-        };
-
         Point[] points3 = new Point[] {
             new Point(-1, -1),  
             new Point(0, 0),  
@@ -1086,22 +1081,23 @@ public class LICTests {
 
         };
         Parameters p = new Parameters();
-        p.G_PTS = 1;
-    
-        //Tests that false is returned when NUMPOINTS < 3
-        assertFalse(LIC.LIC11(points2.length, points2, p));
 
-        //Tests that false is returned when G_PTS < 1
         p.G_PTS = 0;
-        assertFalse(LIC.LIC11(points1.length, points1, p));
+        // Tests that IllegalArgumentException is thrown when G_PTS < 1
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC11(points1.length, points1, p);
+        });
 
-        //Tests that false is returned when NUMPOINTS-2 < G_PTS
         p.G_PTS = 2;
-        assertFalse(LIC.LIC11(points1.length, points1, p));
+        // Tests that IllegalArgumentException is thrown when NUMPOINTS-2 < G_PTS
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC11(points1.length, points1, p);
+        });
 
         //Tests that false is returned when there does not exist at least one set of two data points, 
         //(X[i],Y[i]) and (X[j],Y[j]), separated by
         //exactly G PTS consecutive intervening points, such that X[j] - X[i] < 0. (where i < j )
+        p.G_PTS = 1;
         assertFalse(LIC.LIC11(points3.length, points3, p));
 
         //Tests that false is returned if there exists at least one set of two data points, 
