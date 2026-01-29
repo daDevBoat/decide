@@ -146,21 +146,21 @@ public class LICTests {
     }
 
     @Test
-    // Contract: LIC0 is false iff less than two points exist.
-    void LIC0_false_with_too_few_points() {
+    // Contract: LIC0 throws an IllegelArgumentException if less than two points exist.
+    void LIC0_throws_with_too_few_points() {
         Parameters p = new Parameters();
         p.LENGTH1 = 4;
         Point[] pts = { new Point(0, 0) };
-        assertFalse(LIC.LIC0(pts.length, pts, p));
+        assertThrows(IllegalArgumentException.class, () -> LIC.LIC0(pts.length, pts,  p));
     }
 
     @Test
-    // Contract: LIC0 is false iff LENGTH1 < 0
-    void LIC0_false_with_length_too_small() {
+    // Contract: LIC0 throws an IllegelArgumentException if LENGTH1 < 0
+    void LIC0_throws_with_length_too_small() {
         Parameters p = new Parameters();
         p.LENGTH1 = -1;
         Point[] pts = { new Point(0, 0), new Point(3, 4)};
-        assertFalse(LIC.LIC0(pts.length, pts, p));
+        assertThrows(IllegalArgumentException.class, () -> LIC.LIC0(pts.length, pts,  p));
     }
 
     @Test
@@ -494,8 +494,8 @@ public class LICTests {
     }
 
      @Test
-    public void LIC6_false_with_DIST_too_small() {
-        // Contract: LIC6 is false iff DIST < 0
+    public void LIC6_throws_exception_with_DIST_too_small() {
+        // Contract: LIC6 throws an exception iff DIST < 0
         Parameters p = new Parameters();
         p.N_PTS = 3;
         p.DIST = -1;
@@ -511,12 +511,12 @@ public class LICTests {
                 new Point(6, 0),
                 new Point(1, -1)
         };
-        assertFalse(LIC.LIC6(points3.length, points3, p));
+        assertThrows(IllegalArgumentException.class, () -> LIC.LIC6(points3.length, points3, p));
     }
 
     @Test
-    public void LIC6_false_with_too_small_N_PTS() {
-        // Contract: LIC6 is false iff N_PTS < 3
+    public void LIC6_throws_exception_with_too_small_N_PTS() {
+        // Contract: LIC6 throws an exception iff N_PTS < 3
         Parameters p = new Parameters();
         p.N_PTS = 2;
         p.DIST = 30;
@@ -532,7 +532,28 @@ public class LICTests {
                 new Point(6, 0),
                 new Point(1, -1)
         };
-        assertFalse(LIC.LIC6(points2.length, points2, p));
+        assertThrows(IllegalArgumentException.class, () -> LIC.LIC6(points2.length, points2, p));
+    }
+
+    @Test
+    public void LIC6_throws_exception_with_N_PTS_bigger_than_numpoints() {
+        // Contract: LIC6 throws an exception iff N_PTS > numpoints
+        Parameters p = new Parameters();
+        p.N_PTS = 20;
+        p.DIST = 30;
+        Point[] points2 = new Point[] {
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(2, 0),
+                new Point(1, 1),
+                new Point(2, 2),
+                new Point(1, 1),
+                new Point(0, 3),
+                new Point(1, 2),
+                new Point(6, 0),
+                new Point(1, -1)
+        };
+        assertThrows(IllegalArgumentException.class, () -> LIC.LIC6(points2.length, points2, p));
     }
 
     @Test
@@ -843,57 +864,87 @@ public class LICTests {
     }
 
     @Test
-    public void LIC10_false_when_area_too_small() {
-        // Contract: LIC10 is false if the area is smaller than 0
+    public void LIC10_throws_exception_when_area_too_small() {
+        // Contract: LIC10 throws exception if the area is smaller than 0
         Point [] points = new Point[] {
                 new Point(1, 0),
                 new Point(0, 0),
-                new Point(1, 0)
+                new Point(1, 0),
+                new Point(1, 0),
+                new Point(0, 0),
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(1, 0),
+                new Point(0, 0)
         };
         Parameters p = new Parameters();
         p.E_PTS = 2;
         p.F_PTS = 2;
         p.AREA1 = -1;
-        assertFalse(LIC.LIC10(3, points, p));
+        assertThrows(IllegalArgumentException.class, () -> LIC.LIC10(points.length, points, p));
     }
 
-    @Test
-    public void LIC10_false_when_EPTS_plus_FTPS_too_large() {
-        // Contract: LIC10 is false if E_PTS + F_PTS <= numpoints - 3
+     @Test
+    public void LIC10_throws_exception_when_EPTS_too_small() {
+        // Contract: LIC10 throws exception if the EPTS < 1
         Point [] points = new Point[] {
                 new Point(1, 0),
                 new Point(0, 0),
                 new Point(1, 0),
+                new Point(1, 0),
                 new Point(0, 0),
-                new Point(1, 0)
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(1, 0),
+                new Point(0, 0)
         };
         Parameters p = new Parameters();
-        p.E_PTS = 1;
+        p.E_PTS = 0;
         p.F_PTS = 2;
-        p.AREA1 = 10;
-        assertFalse(LIC.LIC10(5, points, p));
+        p.AREA1 = 4;
+        assertThrows(IllegalArgumentException.class, () -> LIC.LIC10(points.length, points, p));
     }
 
     @Test
-    public void LIC10_false_with_smaller_area() {
-        /*
-        * Contract: LIC10 is false iff there exists no set of three data points 
-        * separated by exactly E PTS and F PTS consecutive intervening points, respectively,
-        * that are the vertices of a triangle with area greater than AREA1.
-        */
+    public void LIC10_throws_exception_when_FPTS_too_small() {
+        // Contract: LIC10 throws exception if FPTS < 1
         Point [] points = new Point[] {
                 new Point(1, 0),
-                new Point(0, 1),
-                new Point(2, 0),
-                new Point(0, 2),
-                new Point(1, 1),
-                new Point(1, 1)
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(1, 0),
+                new Point(0, 0),
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(1, 0),
+                new Point(0, 0)
         };
         Parameters p = new Parameters();
-        p.E_PTS = 1;
-        p.F_PTS = 1;
-        p.AREA1 = 10;
-        assertFalse(LIC.LIC10(points.length, points, p));
+        p.E_PTS = 2;
+        p.F_PTS = 0;
+        p.AREA1 = 4;
+        assertThrows(IllegalArgumentException.class, () -> LIC.LIC10(points.length, points, p));
+    }
+
+     @Test
+    public void LIC10_throws_exception_when_EPTS_plus_FPTS_too_large() {
+        // Contract: LIC10 throws exception if EPTS + FPTS > numpoints - 3
+        Point [] points = new Point[] {
+                new Point(1, 0),
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(1, 0),
+                new Point(0, 0),
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(1, 0),
+                new Point(0, 0)
+        };
+        Parameters p = new Parameters();
+        p.E_PTS = 5;
+        p.F_PTS = 5;
+        p.AREA1 = 4;
+        assertThrows(IllegalArgumentException.class, () -> LIC.LIC10(points.length, points, p));
     }
 
     @Test

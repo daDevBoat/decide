@@ -50,6 +50,25 @@ public class DecideTest {
 
         int numPoints = points.length;
         Parameters p = new Parameters();
+        p.LENGTH1 = 0; //Best for all LICS
+        p.RADIUS1 = 0; //Best for all LICS
+        p.EPSILON = 0; //Best for all LICS
+        p.AREA1 = 0; //Best for all LICs
+        p.Q_PTS = 5; // The one in LIC4 testcase
+        p.QUADS = 2; // Same for LIC4
+        p.DIST = 3.0; //Same for LIC6
+        p.N_PTS = 3; //Same for LIC6
+        p.K_PTS = 1; //same for LIC7 and LIC12
+        p.A_PTS = 1; //Same for LIC8 and LIC 13
+        p.B_PTS = 1; //Same for LIC8 and LIC 13
+        p.C_PTS = 1; //Same for LIC9
+        p.D_PTS = 1; //Same for LIC9
+        p.E_PTS = 1; //Same for LIC 10 and 14
+        p.F_PTS = 1; //Same for LIC 10 and 14
+        p.G_PTS = 1; //Same for LIC 11
+        p.LENGTH2 = 10000;
+        p.RADIUS2 = 10000;
+        p.AREA2 = 10000;
         Matrix cmv = Decide.CMV(numPoints, points, p);
 
         assertEquals(15, cmv.M);

@@ -2,8 +2,10 @@ import java.util.stream.IntStream;
 
 public class LIC {
 
-    public static boolean LIC0(int numPoints, Point[] points, Parameters p) {
-        if (p.LENGTH1 < 0) return false;
+    public static boolean LIC0(int numPoints, Point[] points, Parameters p) throws IllegalArgumentException {
+        if (p.LENGTH1 < 0 || numPoints < 2) {
+            throw new IllegalArgumentException();
+        }
         for (int i = 0; i < numPoints - 1; i++) {
             if (Point.distance(points[i], points[i + 1]) > p.LENGTH1)
                 return true;
@@ -85,9 +87,11 @@ public class LIC {
         return false;
     }
     
-    public static boolean LIC6(int numPoints, Point[] points, Parameters p) {
-        if (numPoints < 3 || p.N_PTS < 3 || p.DIST < 0 || numPoints < p.N_PTS ||
-            p.DIST < 0) return false;
+    public static boolean LIC6(int numPoints, Point[] points, Parameters p) throws IllegalArgumentException {
+        if (numPoints < 3) return false;
+        if (p.N_PTS < 3 || p.DIST < 0 || numPoints < p.N_PTS) {
+            throw new IllegalArgumentException();
+        }
 
         for (int i = 0; i <= numPoints - p.N_PTS; i++) {
             Point p_start = points[i];
@@ -152,9 +156,11 @@ public class LIC {
         return false;
     }
 
-    public static boolean LIC10(int numPoints, Point[] points, Parameters p) {
-        if (numPoints < 5 || p.E_PTS < 1 ||p.F_PTS < 1 || p.E_PTS + p.F_PTS > numPoints - 3 ||
-            p.AREA1 < 0) return false;
+    public static boolean LIC10(int numPoints, Point[] points, Parameters p) throws IllegalArgumentException {
+        if (numPoints < 5) return false;
+        if (p.E_PTS < 1 ||p.F_PTS < 1 || p.E_PTS + p.F_PTS > numPoints - 3 || p.AREA1 < 0) {
+            throw new IllegalArgumentException();
+            }
 
         for (int i = 0; i < numPoints - p.F_PTS - p.E_PTS - 2; i ++) {
             Point p1 = points[i];
