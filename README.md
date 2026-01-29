@@ -25,7 +25,17 @@ The repository includes:
 ./gradlew run
 
 ## Way-of-working:
-We agreed to follow a continuous integration workstyle, where for every feature or fix identified, we create an issue. Every issue is its own branch. After the work on an issue is completed, the issue branch will be rebased, the commits will be squashed, and then merged with main. This allows the main branch to have an easily understood commit history, with each commit representing one issue, while also allowing for tracing errors or bugs to a specific commit. When comparing our way-of-working to the Essence checklist, we fullfill most criterias of the state In Place and one of Working well. Our practices and tools are available to all team members through our ReadMe, the decidedPractices file, and the gradle-wrapper, and are used by the whole team. The progress has been mostly as planned, while all team members follow our agreed way-of-working. We could still improve a little in the inspection and accurate adaptation of the way-of-working, but with every working day, the accuracy with which we follow the way-of-working increases. To reach the next step, we all need to become more accustomed to the agreed-upon practices, such as creating an issue for every bug or feature, so that we follow them naturally without thinking about it. We should also have regular meetings where we discuss if the current way-of-working is still optimal or if we should tune the practices and tools. 
+We agreed to follow a continuous integration workstyle, where for every feature or fix identified, we create an issue. Every issue is its own branch. After the work on an issue is completed, the issue branch will be rebased, the commits will be squashed, and then merged with main. This allows the main branch to have an easily understood commit history, with each commit representing one issue, while also allowing for tracing errors or bugs to a specific commit.
+
+### Essence
+
+When comparing our way-of-working to the Essence checklist, we are in state `In Use`.
+
+Early on, we agreed on the above mentioned way of working, and have been using it throughout the work on assignment 1. When evaluating the checklist, we fullfill all the points prior to state `In Place`.
+
+We most of the time work together in the computer rooms, which allows us to discuss feedback immediatelly. We regularily adapt the way of working and make small adjustments where needed, like switching to squash and commit when creating a pull request. Our way of working and the clean structures within it allow us to easily and effectively communicate.
+
+Looking ahead in the checklist, we can see that we already fullfill some of the points of the `In Place` and Working well states. Our practices and tools are available to all team members through our ReadMe, the decidedPractices file, and the gradle-wrapper, and are used by the whole team. To reach the state `In Place`, we could still improve on the inspection and accurate adaptation of the way-of-working, but with every working day, the accuracy with which we follow the way-of-working increases.
 
 ## Statement of Contributions
 
