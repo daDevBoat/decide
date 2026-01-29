@@ -163,6 +163,26 @@ public class LICTests {
         assertThrows(IllegalArgumentException.class, () -> LIC.LIC0(pts.length, pts,  p));
     }
 
+
+    @Test
+    /*
+    * Contract: Method throws exception due to RADIUS1 being invalid since it is negative
+    */
+    void testLIC1InvalidRADIUS1() {
+        Point[] points = new Point[] {
+            new Point(2, 2),
+            new Point(8, 2),
+            new Point(6, 5)
+        };
+        Parameters p = new Parameters();
+        p.RADIUS1 = -1;
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC1(points.length, points, p);
+        });
+
+    }
+
     @Test
     /*
     * Contract: LIC1 is true iff there exists 3 consecutive points that
@@ -176,12 +196,7 @@ public class LICTests {
             new Point(6, 5)
         };
         Parameters p = new Parameters();
-
-        p.RADIUS1 = -1;
-        assertFalse(LIC.LIC1(points.length, points, p));
         p.RADIUS1 = 3;
-
-        assertFalse(LIC.LIC1(0, new Point[]{}, p));
 
         assertTrue(LIC.LIC1(points.length, points, p));
         points[0].x = 2.1;
@@ -557,6 +572,46 @@ public class LICTests {
     }
 
     @Test
+    public void testLIC7InvalidKPTS() {
+        /*
+        * Contract: Method throws exception due to K_PTS being invalid since it is sat 0
+        */
+        Point[] points = new Point[] {
+                new Point(2, 2),
+                new Point(5, 5),
+                new Point(8, 2)
+        };
+
+        Parameters p = new Parameters();
+        p.LENGTH1 = 1;
+        p.K_PTS = 0;
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC7(points.length, points, p);
+        });
+    }
+
+    @Test
+    public void testLIC7InvalidLENGTH1() {
+        /*
+        * Contract: Method throws exception due to LENGTH1 being invalid since it is negtive
+        */
+        Point[] points = new Point[] {
+                new Point(2, 2),
+                new Point(5, 5),
+                new Point(8, 2)
+        };
+
+        Parameters p = new Parameters();
+        p.LENGTH1 = -1;
+        p.K_PTS = 1;
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC7(points.length, points, p);
+        });
+    }
+
+    @Test
     public void testLIC7() {
         /*
         * Contract: LIC7 is true iff there exists at least on set of 2 consecutive points seperated by K_PTS 
@@ -577,18 +632,9 @@ public class LICTests {
                 new Point(-12, 5)
         };
 
-        Parameters p = new Parameters();
-        p.LENGTH1 = 1;
-        p.K_PTS = 0;
-        assertFalse(LIC.LIC7(points1.length, points1, p));
-        p.K_PTS = 1;
-
-        assertFalse(LIC.LIC7(0, new Point[]{}, p));
-
-        p.LENGTH1 = -1;
-        assertFalse(LIC.LIC7(points1.length, points1, p));
-
         
+        Parameters p = new Parameters();
+        p.K_PTS = 1;
         p.LENGTH1 = 5.9;
         assertTrue(LIC.LIC7(points1.length, points1, p));
         p.LENGTH1 = 6;
@@ -1182,6 +1228,110 @@ public class LICTests {
     }
 
     @Test
+    public void testLIC13InvalidAPTS() {
+        /*
+        * Contract: Method throws exception due to A_PTS being invalid since it is sat 0
+        */
+        Point[] points = new Point[] {
+                new Point(2, 2),
+                new Point(99, 99),
+                new Point(8, 2),
+                new Point(100, 100),
+                new Point(6, 5),
+                new Point(101, 101),
+                new Point(5, 11)
+        };
+
+        Parameters p = new Parameters();
+        p.RADIUS1 = 3;
+        p.A_PTS = 0;
+        p.B_PTS = 1;
+        p.RADIUS2 = 1.5;
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC13(points.length, points, p);
+        });
+    }
+
+    @Test
+    public void testLIC13InvalidBPTS() {
+        /*
+        * Contract: Method throws exception due to B_PTS being invalid since it is sat 0
+        */
+        Point[] points = new Point[] {
+                new Point(2, 2),
+                new Point(99, 99),
+                new Point(8, 2),
+                new Point(100, 100),
+                new Point(6, 5),
+                new Point(101, 101),
+                new Point(5, 11)
+        };
+
+        Parameters p = new Parameters();
+        p.RADIUS1 = 3;
+        p.A_PTS = 1;
+        p.B_PTS = 0;
+        p.RADIUS2 = 1.5;
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC13(points.length, points, p);
+        });
+    }
+
+    @Test
+    public void testLIC13InvalidRADIUS1() {
+        /*
+        * Contract: Method throws exception due to RADIUS1 being invalid since it is negative
+        */
+        Point[] points = new Point[] {
+                new Point(2, 2),
+                new Point(99, 99),
+                new Point(8, 2),
+                new Point(100, 100),
+                new Point(6, 5),
+                new Point(101, 101),
+                new Point(5, 11)
+        };
+
+        Parameters p = new Parameters();
+        p.RADIUS1 = -3;
+        p.A_PTS = 1;
+        p.B_PTS = 1;
+        p.RADIUS2 = 1.5;
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC13(points.length, points, p);
+        });
+    }
+
+    @Test
+    public void testLIC13InvalidRADIUS2() {
+        /*
+        * Contract: Method throws exception due to RADIUS2 being invalid since it is negative
+        */
+        Point[] points = new Point[] {
+                new Point(2, 2),
+                new Point(99, 99),
+                new Point(8, 2),
+                new Point(100, 100),
+                new Point(6, 5),
+                new Point(101, 101),
+                new Point(5, 11)
+        };
+
+        Parameters p = new Parameters();
+        p.RADIUS1 = 3;
+        p.A_PTS = 1;
+        p.B_PTS = 1;
+        p.RADIUS2 = -1.5;
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            LIC.LIC13(points.length, points, p);
+        });
+    }
+
+    @Test
     public void testLIC13() {
         /*
         * Contract: LIC13 is true iff there exists at least one set of 3 consecutive points seperated by first A_PTS 
@@ -1207,29 +1357,6 @@ public class LICTests {
         System.out.println(radius3);
 
         Parameters p = new Parameters();
-        p.RADIUS1 = -1;
-        p.A_PTS = 1;
-        p.B_PTS = 1;
-        p.RADIUS2 = 1.5;
-
-        assertFalse(LIC.LIC13(points.length, points, p));
-        p.RADIUS1 = 3;
-
-        p.A_PTS = 0;
-        assertFalse(LIC.LIC13(points.length, points, p));
-        p.A_PTS = 1;
-
-        p.B_PTS = 0;
-        assertFalse(LIC.LIC13(points.length, points, p));
-        p.B_PTS = 1;
-
-        p.RADIUS2 = -1;
-        assertFalse(LIC.LIC13(points.length, points, p));
-        p.RADIUS2 = 1.5;
-        
-        assertFalse(LIC.LIC13(0, new Point[]{}, p));
-        
-
         p.RADIUS1 = 3;
         p.A_PTS = 1;
         p.B_PTS = 1;
