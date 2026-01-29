@@ -31,10 +31,10 @@ public class LIC {
     public static boolean LIC2(int numPoints, Point[] points, Parameters p) {
         double PI = 3.14159;
         if (!(0 <= p.EPSILON && p.EPSILON < PI)) {
-            return false;
+            throw new IllegalArgumentException();
         }
-        if (numPoints == 2) {
-            return false;
+        if (numPoints < 3) {
+            throw new IllegalArgumentException();
         }
         for (int i = 0; i < numPoints - 2; i++) {
             Point p1 = points[i];
@@ -135,8 +135,11 @@ public class LIC {
     }
 
     public static boolean LIC8(int numPoints, Point[] points, Parameters p) {
-        if (p.A_PTS < 1 || p.B_PTS < 1 || numPoints < 5 || p.A_PTS+p.B_PTS > (numPoints-3) || 0>p.RADIUS1){
-            return false;
+        if (p.A_PTS < 1 || p.B_PTS < 1 || p.A_PTS+p.B_PTS > (numPoints-3) || 0>p.RADIUS1){
+            throw new IllegalArgumentException();
+        }
+        if (numPoints < 5){
+            return false; 
         }
         for (int i = 0; i + p.A_PTS+p.B_PTS < numPoints-2; i++){
             Point p1 = points[i];
@@ -191,8 +194,8 @@ public class LIC {
     }
 
     public static boolean LIC11(int numPoints, Point[] points , Parameters p){
-        if (numPoints < 3 || 1 > p.G_PTS || p.G_PTS > numPoints-2){
-            return false;
+        if ( 1 > p.G_PTS || p.G_PTS > numPoints-2){
+            throw new IllegalArgumentException();
         }
         for (int i = 0; i + p.G_PTS < numPoints-1; i++){
             Point p1 = points[i];
