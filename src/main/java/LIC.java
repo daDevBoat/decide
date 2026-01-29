@@ -50,9 +50,10 @@ public class LIC {
         return false;
     }
 
-    public static boolean LIC3(int numPoints, Point[] points, Parameters p) {
-        if (p.AREA1 < 0) return false;
-        if(numPoints == 2) return false;
+    public static boolean LIC3(int numPoints, Point[] points, Parameters p) throws IllegalArgumentException {
+        if (p.AREA1 < 0 || numPoints < 3) {
+            throw new IllegalArgumentException();
+        } 
         for (int i = 0; i < numPoints - 2; i++){
             if(Point.triangleArea(points[i], points[i+1], points[i+2]) > p.AREA1){
                 return true;
@@ -148,11 +149,10 @@ public class LIC {
         return false; 
     }
 
-    public static boolean LIC9(int numPoints, Point[] points, Parameters p){
-        if(numPoints < 5) return false;
-        if(p.C_PTS < 1 || p.D_PTS < 1) return false;
-        if(p.C_PTS + p.D_PTS > numPoints - 3) return false;
-        if(p.EPSILON < 0 || p.EPSILON >= Math.PI) return false;
+    public static boolean LIC9(int numPoints, Point[] points, Parameters p) throws IllegalArgumentException { 
+        if((p.C_PTS < 1 || p.D_PTS < 1) || (p.EPSILON < 0 || p.EPSILON >= Math.PI) || (p.C_PTS + p.D_PTS > numPoints - 3) || (numPoints < 5)){
+            throw new IllegalArgumentException();
+        }
 
         for(int i = 0; i + p.C_PTS + p.D_PTS + 2 < numPoints; i++){
 
@@ -204,11 +204,10 @@ public class LIC {
         return false; 
     }
 
-    public static boolean LIC12(int numPoints, Point[] points , Parameters p){
-        if(numPoints < 3) return false;
-        if(p.LENGTH2 < 0) return false; 
-        if(p.LENGTH1 < 0) return false;
-        if(p.K_PTS < 1 || p.K_PTS > numPoints -2) return false;
+    public static boolean LIC12(int numPoints, Point[] points , Parameters p) throws IllegalArgumentException {
+        if((p.LENGTH1 < 0) || (p.LENGTH2 < 0) || (p.K_PTS < 1 || p.K_PTS > numPoints -2) || (numPoints < 3)){
+            throw new IllegalArgumentException();
+        }
 
         boolean condA = false; /* Exists pair with distance > LENGTH1 */
         boolean condB = false; /* Exists pair with distance < LENGTH2 */

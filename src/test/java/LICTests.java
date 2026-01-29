@@ -294,8 +294,8 @@ public class LICTests {
     }
 
     @Test
-    public void LIC3_false_InputInvalid_AREA1_Negative() {
-        /* Contract: If AREA1 < 0 (invalid input), LIC3 must return false */
+    public void LIC3_InputInvalid_AREA1_Negative() {
+        /* Contract: If AREA1 < 0 (invalid input), the method must throw IllegalArgumentException */
         int numPoints = 3;
         Point[] points = new Point[] {
             new Point(0, 0), new Point(4,0), new Point(0,3)
@@ -304,7 +304,7 @@ public class LICTests {
         Parameters p = new Parameters();
         p.AREA1 = -1.0;
 
-        assertFalse(LIC.LIC3(numPoints, points, p));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC3(numPoints, points, p); });
     }
 
     @Test
@@ -329,12 +329,9 @@ public class LICTests {
     }
 
     @Test
-    public void LIC3_false_InputInvalid_numPoints_Equals_2() {
-        /*
-         * Contract: If there are 2 points, LIC3 has no valid triple consecutive points
-         * to evaluate,
-         * therefore it must return false.
-         */
+    public void LIC3_InputInvalid_numPoints_LessThan_3() {
+        /*  Contract: If there are 2 points, LIC3 has no valid triple consecutive points
+        to evaluate, therefore it must throw an IllegalArgumentException */
 
         int numPoints = 2;
 
@@ -346,7 +343,7 @@ public class LICTests {
         Parameters p = new Parameters();
         p.AREA1 = 0.0;
 
-        assertFalse(LIC.LIC3(numPoints, points, p));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC3(numPoints, points, p); });
     }
 
     @Test
@@ -775,8 +772,8 @@ public class LICTests {
     // LIC9 Unit Tests
 
     @Test
-    public void LIC9_false_when_numPoint_LessThan_5() {
-        /* Contract: If numPoints < 5, returns false (invalid input) */
+    public void LIC9_invalidInput_when_numPoint_LessThan_5() {
+        /* Contract: If numPoints < 5, must throw IllegalArgumentException */
 
         int numPoints = 4;
         Point[] points = new Point[] {
@@ -788,12 +785,12 @@ public class LICTests {
         p.D_PTS = 1;
         p.EPSILON = 0.1;
 
-        assertFalse(LIC.LIC9(numPoints, points, p));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC9(numPoints, points, p); });
     }
 
     @Test
-    public void LIC9_false_whenC_PTSorD_PTS_Invalid() {
-        /* Contract: If C_PTS < 1 or D_PTS < 1, LCI9 returns false (invalid input) */
+    public void LIC9_whenC_PTSorD_PTS_InvalidInput() {
+        /* Contract: If C_PTS < 1 or D_PTS < 1, LCI9 (invalid input) must throw IllegalArgumentException */
 
         int numPoints = 5;
         Point[] points = new Point[] {
@@ -805,18 +802,18 @@ public class LICTests {
         p1.D_PTS = 1;
         p1.EPSILON = 0.1;
 
-        assertFalse(LIC.LIC9(numPoints, points, p1));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC9(numPoints, points, p1); });
 
         Parameters p2 = new Parameters();
         p2.C_PTS = 1;
         p2.D_PTS = 0;
         p2.EPSILON = 0.1;
-        assertFalse(LIC.LIC9(numPoints, points, p2));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC9(numPoints, points, p2); });
     }
 
     @Test
-    public void LIC9_false_when_EPSILON_OutOfRange() {
-        /* Contract: Given EPSILON outside [0, PI), LIC9 must return FALSE */
+    public void LIC9_InvalidInput_when_EPSILON_OutOfRange() {
+        /* Contract: Given EPSILON outside [0, PI), LIC9 must return throw IllegalArgumentException */
         Point[] points = new Point[] {
             new Point(0,0), new Point(1,0), new Point(2,0), new Point(2,1), new Point(3,1)
         };
@@ -827,22 +824,19 @@ public class LICTests {
         p1.C_PTS = 1;
         p1.D_PTS = 1;
         p1.EPSILON = -0.1;
-        assertFalse(LIC.LIC9(numPoints, points, p1));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC9(numPoints, points, p1); });
 
         /* Case 2: EPSILON >= 1 */
         Parameters p2 = new Parameters();
         p2.C_PTS = 1;
         p2.D_PTS = 1;
         p2.EPSILON = Math.PI;
-        assertFalse(LIC.LIC9(numPoints, points, p2));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC9(numPoints, points, p2); });
     }
 
     @Test
-    public void LIC9_false_When_C_PTSplusD_PTS_GreaterThan_numPoints_minus_three() {
-        /*
-         * Contract: If C_PTS + D_PTS > numPoints - 3, LIC9 returns false (invalid
-         * input)
-         */
+    public void LIC9_invalidInput_When_C_PTSplusD_PTS_GreaterThan_numPoints_minus_three() {
+        /* Contract: If C_PTS + D_PTS > numPoints - 3, LIC9 (invalid input) must throw IllegallArgumentException */
         int numPoints = 5;
 
         Point[] points = new Point[] {
@@ -854,16 +848,13 @@ public class LICTests {
         p.D_PTS = 1;
         p.EPSILON = 0.1;
 
-        assertFalse(LIC.LIC9(numPoints, points, p));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC9(numPoints, points, p); });
     }
 
     @Test
     public void LIC9_true_When_AngleOutside_PIPlusMinusEpsilon() {
-        /*
-         * Contract: LIC9 returns true iff there exists points A,B,C with the required
-         * spacing
-         * such that the angle at B is < (PI - EPSILON) or > (PI + EPSILON)
-         */
+        /* Contract: LIC9 returns true iff there exists points A,B,C with the required spacing 
+        such that the angle at B is < (PI - EPSILON) or > (PI + EPSILON) */
 
         int numPoints = 5;
 
@@ -885,10 +876,8 @@ public class LICTests {
 
     @Test
     public void LIC9_false_AllEvaluatingAngles_AreWithin_PIPlusMinusEpsilon() {
-        /*
-         * Contract: If for every valid triple A,B,C (with required spacing),
-         * the angle at B lies within [PI - EPSILON, PI + EPSILON], LIC9 returns false
-         */
+        /* Contract: If for every valid triple A,B,C (with required spacing), 
+        the angle at B lies within [PI - EPSILON, PI + EPSILON], LIC9 returns false */
 
         int numPoints = 5;
 
@@ -1145,8 +1134,8 @@ public class LICTests {
     }
 
     @Test
-    public void LIC12_false_K_pts_OutOfRange() {
-        /* Contract: Given invalid K_PTS (outside [1, numPoints -2]), LIC12 must return false */
+    public void LIC12_invalid_K_pts_OutOfRange() {
+        /* Contract: Given invalid K_PTS (outside [1, numPoints -2]), LIC12 (invalid input) must throw IllegalArgumentException */
 
         Parameters p = new Parameters();
         p.K_PTS = 0;
@@ -1158,7 +1147,7 @@ public class LICTests {
         };
         int numPoints = points.length;
 
-        assertFalse(LIC.LIC12(numPoints, points, p));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC12(numPoints, points, p); });
     }
 
     @Test
@@ -1211,8 +1200,8 @@ public class LICTests {
     }
 
     @Test
-    public void LIC12_false_when_numPoints_lessThan_3() {
-        /* Contract: When numPoints < 3, the condition is not met and must return false. */
+    public void LIC12_invalidInput_when_numPoints_lessThan_3() {
+        /* Contract: When numPoints < 3, the condition is not met and must throw IllegalArgumentException. */
 
         int numPoints = 2;
 
@@ -1226,12 +1215,13 @@ public class LICTests {
                 new Point(1, 0)
         };
 
-        assertFalse(LIC.LIC12(numPoints, points, p));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC12(numPoints, points, p); });
+
     }
 
     @Test
-    public void LIC12_false_when_LENGTH2_IsNegative() {
-        /* Contract: LENGTH2 must be non-negative. If LENGTH2 < 0 (invalid input), LIC12 must return false */
+    public void LIC12_invalidInput_when_LENGTH2_IsNegative() {
+        /* Contract: LENGTH2 must be non-negative. If LENGTH2 < 0 (invalid input), LIC12 must throw IllegalArgumentException */
 
         int numPoints = 3;
 
@@ -1246,13 +1236,13 @@ public class LICTests {
                 new Point(6, 0)
         };
 
-        assertFalse(LIC.LIC12(numPoints, points, p));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC12(numPoints, points, p); });
 
     }
 
     @Test
-    public void LIC12_false_when_LENGTH1_is_Negative() {
-        /* Contract: Given LENGTH1 < 0, LIC12 must return false */
+    public void LIC12_invalid_when_LENGTH1_is_Negative() {
+        /* Contract: Given LENGTH1 < 0, LIC12 must show IllegalArgumentException */
         Parameters p = new Parameters();
         p.K_PTS = 1;
         p.LENGTH1 = -0.5;
@@ -1263,7 +1253,7 @@ public class LICTests {
         };
         int numPoints = points.length;
 
-        assertFalse(LIC.LIC12(numPoints, points, p));
+        assertThrows(IllegalArgumentException.class, () -> { LIC.LIC12(numPoints, points, p); });
     }
 
     @Test
